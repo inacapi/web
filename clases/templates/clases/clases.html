@@ -1,0 +1,31 @@
+{% extends "clases/plantilla.html" %}
+{% block contenido %}
+
+
+<h1 class="text-center">Lista de clases</h1>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Semestre</th>
+      <th>Eliminar</th>
+      <th>Actualizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for clase in clases %}
+    <tr>
+      <td>{{ clase.id }}</td>
+      <td>{{ clase.nombre }}</td>
+      <td>{{ clase.semestre }}</td>
+      <td><a href="{% url 'clases:eliminar' clase.id %}" class="btn btn-danger">×</a></td>
+      <td><a href="{% url 'clases:actualizar' clase.id %}" class="btn btn-success">×</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+</div>
+{% endblock contenido %}

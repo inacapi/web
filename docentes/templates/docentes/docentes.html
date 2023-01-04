@@ -1,0 +1,31 @@
+{% extends "docentes/plantilla.html" %}
+{% block contenido %}
+
+
+<h1 class="text-center">Lista de docentes👨🏻‍🏫👩🏻‍🏫</h1>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Eliminar</th>
+      <th>Actualizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for docente in docentes %}
+    <tr>
+      <td>{{ docente.id }}</td>
+      <td>{{ docente.nombre }}</td>
+      <td>{{ docente.apellido }}</td>
+      <td><a href="{% url 'docentes:eliminar' docente.id %}" class="btn btn-danger">×</a></td>
+      <td><a href="{% url 'docentes:actualizar' docente.id %}" class="btn btn-success">×</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+</div>
+{% endblock contenido %}

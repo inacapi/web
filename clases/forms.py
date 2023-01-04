@@ -1,10 +1,10 @@
-from .models import Estudiante
+from .models import Clase
 from django.forms import ModelForm 
 from django import forms
 
-class DocenteFormulario(ModelForm):
+class ClaseFormulario(ModelForm):
     class Meta:
-        model = Estudiante
+        model = Clase
         widgets = {
             'nombre': forms.widgets.TextInput(
                 attrs={
@@ -12,10 +12,11 @@ class DocenteFormulario(ModelForm):
                 }
             ),
 
-            'apellido': forms.widgets.TextInput(
+            'semestre': forms.widgets.NumberInput(
                 attrs={
+                    'type' : 'number',
                     'class': 'form-control'
                 }
             ),
         }
-        fields = ['nombre', 'apellido']
+        fields = ['nombre', 'semestre']

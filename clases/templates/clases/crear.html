@@ -1,8 +1,8 @@
-{% extends 'estudiantes/plantilla.html' %}
+{% extends 'clases/plantilla.html' %}
 {% block contenido %}
 
 <div class="mb-3  container">
-    <h1>{{ titulo }} estudiantes 🧑🏻‍🏫</h1>
+    <h1>{{ titulo }} clases </h1>
     <form method="post"> 
         {% csrf_token %}
         {{ formulario }}

@@ -1,10 +1,10 @@
-from .models import Estudiante
+from .models import Docente
 from django.forms import ModelForm 
 from django import forms
 
 class DocenteFormulario(ModelForm):
     class Meta:
-        model = Estudiante
+        model = Docente
         widgets = {
             'nombre': forms.widgets.TextInput(
                 attrs={
