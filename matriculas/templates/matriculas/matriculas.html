@@ -1,0 +1,31 @@
+{% extends "matriculas/plantilla.html" %}
+{% block contenido %}
+
+
+<h1 class="text-center">Lista de matriculas</h1>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Periodo</th>
+      <th>Estudiante</th>
+      <th>Eliminar</th>
+      <th>Actualizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for matricula in matriculas %}
+    <tr>
+      <td>{{ matricula.id }}</td>
+      <td>{{ matricula.periodo }}</td>
+      <td>{{ matricula.estudiante }}</td>
+      <td><a href="{% url 'matriculas:eliminar' matricula.id %}" class="btn btn-danger">×</a></td>
+      <td><a href="{% url 'matriculas:actualizar' matricula.id %}" class="btn btn-success">×</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+</div>
+{% endblock contenido %}
