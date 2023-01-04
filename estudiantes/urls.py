@@ -1,6 +1,10 @@
 from django.urls import path
-from .views import index, crear
+from . import views
+
+app_name = 'estudiantes'
 urlpatterns = [
-    path('', index, name='admin-index'),
-    path('crear/', crear, name='admin-crear'),
+    path('', views.estudiantes, name='estudiantes'),
+    path('crear/', views.crear, name='crear'),
+    path('eliminar/<int:id>', views.eliminar, name='eliminar'),
+    path('actualizar/<int:id>', views.actualizar, name='actualizar'),
 ]
