@@ -1,0 +1,33 @@
+{% extends "notas/plantilla.html" %}
+{% block contenido %}
+
+
+<h1 class="text-center">Lista de notas</h1>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Evaluacion</th>
+      <th>Inscripcion</th>
+      <th>Nota</th>
+      <th>Eliminar</th>
+      <th>Actualizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for nota in notas %}
+    <tr>
+      <td>{{ nota.id }}</td>
+      <td>{{ nota.evaluacion }}</td>
+      <td>{{ nota.inscripcion }}</td>
+      <td>{{ nota.nota }}</td>
+      <td><a href="{% url 'notas:eliminar' nota.id %}" class="btn btn-danger">×</a></td>
+      <td><a href="{% url 'notas:actualizar' nota.id %}" class="btn btn-success">×</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+</div>
+{% endblock contenido %}

@@ -1,0 +1,33 @@
+{% extends "inscripciones/plantilla.html" %}
+{% block contenido %}
+
+
+<h1 class="text-center">Lista de inscripciones</h1>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>matricula</th>
+      <th>periodo</th>
+      <th>seccion</th>
+      <th>Eliminar</th>
+      <th>Actualizar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inscripcion in inscripciones %}
+    <tr>
+      <td>{{ inscripcion.id }}</td>
+      <td>{{ inscripcion.matricula }}</td>
+      <td>{{ inscripcion.periodo }}</td>
+      <td>{{ inscripcion.seccion }}</td>
+      <td><a href="{% url 'inscripciones:eliminar' inscripcion.id %}" class="btn btn-danger">×</a></td>
+      <td><a href="{% url 'inscripciones:actualizar' inscripcion.id %}" class="btn btn-success">×</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+</div>
+{% endblock contenido %}

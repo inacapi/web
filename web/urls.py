@@ -23,4 +23,8 @@ urlpatterns = [
     path('periodos/', include('periodos.urls')),
     path('clases/', include('clases.urls')),
     path('matriculas/', include('matriculas.urls')),
+    path('secciones/', include('secciones.urls')),
+    path('inscripciones/', include('inscripciones.urls')),
+    path('evaluaciones/', include('evaluaciones.urls')),
+    path('notas/', include('notas.urls')),
 ]
