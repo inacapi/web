@@ -6,3 +6,6 @@ class Evaluacion(models.Model):
     clase = models.ForeignKey(Clase, on_delete=models.RESTRICT)
     porcentaje = models.FloatField()
     numero = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.numero} - {self.porcentaje*100}% - {self.clase}'

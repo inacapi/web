@@ -8,3 +8,7 @@ class Seccion(models.Model):
     clase = models.ForeignKey(Clase, on_delete=models.RESTRICT)
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     docente = models.ForeignKey(Docente, on_delete=models.RESTRICT)
+
+     
+    def __str__(self):
+        return f'{self.id}  {self.clase.nombre}'

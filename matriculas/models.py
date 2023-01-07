@@ -6,3 +6,6 @@ class Matricula(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True, unique=True)
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     estudiante = models.ForeignKey(Estudiante, on_delete=models.RESTRICT)
+
+    def __str__(self):
+        return f'{self.id}  {self.estudiante.nombre} {self.estudiante.apellido}'

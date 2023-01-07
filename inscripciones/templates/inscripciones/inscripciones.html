@@ -8,9 +8,11 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>matricula</th>
-      <th>periodo</th>
-      <th>seccion</th>
+      <th>Matricula</th>
+      <th>Estudiante</th>
+      <th>Periodo</th>
+      <th>Seccion</th>
+      <th>Clase</th>
       <th>Eliminar</th>
       <th>Actualizar</th>
     </tr>
@@ -19,9 +21,11 @@
     {% for inscripcion in inscripciones %}
     <tr>
       <td>{{ inscripcion.id }}</td>
-      <td>{{ inscripcion.matricula }}</td>
+      <td>{{ inscripcion.matricula.id }}</td>
+      <td>{{ inscripcion.matricula.estudiante }}</td>
       <td>{{ inscripcion.periodo }}</td>
-      <td>{{ inscripcion.seccion }}</td>
+      <td>{{ inscripcion.seccion.id }}</td>
+      <td>{{ inscripcion.seccion.clase }}</td>
       <td><a href="{% url 'inscripciones:eliminar' inscripcion.id %}" class="btn btn-danger">×</a></td>
       <td><a href="{% url 'inscripciones:actualizar' inscripcion.id %}" class="btn btn-success">×</a></td>
     </tr>

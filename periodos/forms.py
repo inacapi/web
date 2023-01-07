@@ -6,10 +6,16 @@ class PeriodoFormulario(ModelForm):
     class Meta:
         model =     Periodo
         widgets = {
+            'id': forms.widgets.NumberInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
             'nombre': forms.widgets.TextInput(
                 attrs={
                     'class': 'form-control'
                 }
             ),
         }
-        fields = ['nombre']
+        fields = '__all__'

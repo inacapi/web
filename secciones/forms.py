@@ -13,7 +13,7 @@ class SeccionFormulario(ModelForm):
                 }
             ),
 
-            'docecnte': forms.widgets.Select(
+            'docente': forms.widgets.Select(
                 attrs={
                     'class': 'form-select'
                 }

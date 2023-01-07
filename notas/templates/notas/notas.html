@@ -8,8 +8,10 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Evaluacion</th>
-      <th>Inscripcion</th>
+      <th>Numero</th>
+      <th>Porcentaje</th>
+      <th>Nombre</th>
+      <th>Clase</th>
       <th>Nota</th>
       <th>Eliminar</th>
       <th>Actualizar</th>
@@ -19,8 +21,10 @@
     {% for nota in notas %}
     <tr>
       <td>{{ nota.id }}</td>
-      <td>{{ nota.evaluacion }}</td>
-      <td>{{ nota.inscripcion }}</td>
+      <td>{{ nota.evaluacion.numero }}</td>
+      <td>{{ nota.evaluacion.porcentaje }}</td>
+      <td>{{ nota.inscripcion.matricula.estudiante }}</td>
+      <td>{{ nota.inscripcion.seccion.clase }}</td>
       <td>{{ nota.nota }}</td>
       <td><a href="{% url 'notas:eliminar' nota.id %}" class="btn btn-danger">×</a></td>
       <td><a href="{% url 'notas:actualizar' nota.id %}" class="btn btn-success">×</a></td>
