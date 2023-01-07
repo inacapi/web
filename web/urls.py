@@ -17,14 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #Este ('') es para poner la ruta de la pagina principal
+    path('', include('inscripciones.urls')),
     path('estudiantes/', include('estudiantes.urls')),
     path('docentes/', include('docentes.urls')),
     path('periodos/', include('periodos.urls')),
     path('clases/', include('clases.urls')),
     path('matriculas/', include('matriculas.urls')),
     path('secciones/', include('secciones.urls')),
-    path('inscripciones/', include('inscripciones.urls')),
     path('evaluaciones/', include('evaluaciones.urls')),
     path('notas/', include('notas.urls')),
 ]
