@@ -17,6 +17,27 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'inscripciones:inscripciones' %}">Inacapi</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="{% url 'notas:notas' %}">Notas</a>
+              <a class="nav-link" href="{% url 'secciones:secciones' %}">Secciones</a>
+              <a class="nav-link" href="{% url 'matriculas:matriculas' %}">Mastriculas</a>
+              <a class="nav-link" href="{% url 'periodos:periodos' %}">Periodos</a>
+              <a class="nav-link" href="{% url 'evaluaciones:evaluaciones' %}">Evaluaciones</a>
+              <a class="nav-link" href="{% url 'estudiantes:estudiantes' %}">Estudiantes</a>
+              <a class="nav-link" href="{% url 'docentes:docentes' %}">Docentes</a>
+              <a class="nav-link" href="{% url 'clases:clases' %}">Clases</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
     {% block contenido %}
     {% endblock contenido %}
 </body>
