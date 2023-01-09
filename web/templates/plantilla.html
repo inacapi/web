@@ -2,44 +2,56 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <title>
-        {% block titulo %}
-        {% endblock titulo %}
-    </title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <title>
+    {% block titulo %}
+    {% endblock titulo %}
+  </title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'inscripciones:inscripciones' %}">Inacapi</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link" href="{% url 'notas:notas' %}">Notas</a>
-              <a class="nav-link" href="{% url 'secciones:secciones' %}">Secciones</a>
-              <a class="nav-link" href="{% url 'matriculas:matriculas' %}">Matriculas</a>
-              <a class="nav-link" href="{% url 'periodos:periodos' %}">Periodos</a>
-              <a class="nav-link" href="{% url 'evaluaciones:evaluaciones' %}">Evaluaciones</a>
-              <a class="nav-link" href="{% url 'estudiantes:estudiantes' %}">Estudiantes</a>
-              <a class="nav-link" href="{% url 'docentes:docentes' %}">Docentes</a>
-              <a class="nav-link" href="{% url 'clases:clases' %}">Clases</a>
-            </div>
-          </div>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand">Inacapi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {% if request.session.nombre %}
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="{% url 'inscripciones:inscripciones'%}">Inscripciones</a>
+          <a class="nav-link" href="{% url 'notas:notas' %}">Notas</a>
+          <a class="nav-link" href="{% url 'secciones:secciones' %}">Secciones</a>
+          <a class="nav-link" href="{% url 'matriculas:matriculas' %}">Matriculas</a>
+          <a class="nav-link" href="{% url 'periodos:periodos' %}">Periodos</a>
+          <a class="nav-link" href="{% url 'evaluaciones:evaluaciones' %}">Evaluaciones</a>
+          <a class="nav-link" href="{% url 'estudiantes:estudiantes' %}">Estudiantes</a>
+          <a class="nav-link" href="{% url 'docentes:docentes' %}">Docentes</a>
+          <a class="nav-link" href="{% url 'clases:clases' %}">Clases</a>
         </div>
-      </nav>
-
-    {% block contenido %}
-    {% endblock contenido %}
+      </div>
+      {% endif %}
+      <div class="dropdown">
+        {% if request.session.nombre %}
+        <a class="btn btn-secondary" href="{% url 'usuarios:cerrar' %}">Cerrar Sesion</a>
+        {% else %}
+        <button class="btn btn-secondary" data-bs-toggle="dropdown">
+          Iniciar sesión
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  {% block contenido %}
+  {% endblock contenido %}
 </body>
 
 </html>
