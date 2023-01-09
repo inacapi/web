@@ -18,7 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     #Este ('') es para poner la ruta de la pagina principal
-    path('', include('inscripciones.urls')),
+    path('', include('usuarios.urls')),
     path('estudiantes/', include('estudiantes.urls')),
     path('docentes/', include('docentes.urls')),
     path('periodos/', include('periodos.urls')),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('secciones/', include('secciones.urls')),
     path('evaluaciones/', include('evaluaciones.urls')),
     path('notas/', include('notas.urls')),
+    path('inscripciones/', include('inscripciones.urls')),
 ]

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'inscripciones',
     'evaluaciones',
     'notas',
+    'usuarios',
 ]
 
 MIDDLEWARE = [

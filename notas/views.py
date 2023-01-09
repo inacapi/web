@@ -4,9 +4,9 @@ from notas.models import Nota
 from notas.forms import NotaFormulario
 from django.forms import ModelForm
 from django.urls import reverse
+from web.helpers import inicio_obligatorio
 
-
-
+@inicio_obligatorio
 def crear(request):
     formulario = NotaFormulario()
     if request.method == 'POST':
@@ -27,18 +27,19 @@ def crear(request):
 
     })
 
-
+@inicio_obligatorio
 def notas(request):
     return render(request, 'notas/notas.html', {
         'notas': Nota.objects.all()
     })
 
-
+@inicio_obligatorio
 def eliminar(request, id):
     notas = Nota.objects.get(id=id)
     notas.delete()
     return redirect(reverse('notas:notas'))
 
+@inicio_obligatorio
 def actualizar(request, id):
     nota = Nota.objects.get(id=id)
     formulario = NotaFormulario(instance=nota)

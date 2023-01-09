@@ -4,9 +4,9 @@ from evaluaciones.models import Evaluacion
 from evaluaciones.forms import EvaluacionFormulario
 from django.forms import ModelForm
 from django.urls import reverse
+from web.helpers import inicio_obligatorio
 
-
-
+@inicio_obligatorio
 def crear(request):
     formulario = EvaluacionFormulario()
     if request.method == 'POST':
@@ -27,18 +27,19 @@ def crear(request):
 
     })
 
-
+@inicio_obligatorio
 def evaluaciones(request):
     return render(request, 'evaluaciones/evaluaciones.html', {
         'evaluaciones': Evaluacion.objects.all()
     })
 
-
+@inicio_obligatorio
 def eliminar(request, id):
     evaluaciones = Evaluacion.objects.get(id=id)
     evaluaciones.delete()
     return redirect(reverse('evaluaciones:evaluaciones'))
 
+@inicio_obligatorio
 def actualizar(request, id):
     evaluaciones = Evaluacion.objects.get(id=id)
     formulario = EvaluacionFormulario(instance=evaluaciones)
