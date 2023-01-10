@@ -90,6 +90,7 @@ DATABASES = {
         'NAME': 'inacapi',
         'USER': 'inacapi',
         'PASSWORD': 'inacapi',
+        'HOST': 'db'
     }
 }
 
