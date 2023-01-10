@@ -7,6 +7,8 @@ services:
       - static_data:/vol/web
     depends_on:
       - db
+    environment:
+      - DEBUG=False
 
   db:
     image: mysql:8.0
