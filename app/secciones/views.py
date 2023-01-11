@@ -1,12 +1,10 @@
-from django.shortcuts import render , redirect
-from django.http import HttpResponse
-from secciones.models import Seccion
-from secciones.forms import SeccionFormulario
-from django.forms import ModelForm
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from web.helpers import inicio_obligatorio
 
-@inicio_obligatorio
+from secciones.forms import SeccionFormulario
+from secciones.models import Seccion
+
+
 def crear(request):
     formulario = SeccionFormulario()
     if request.method == 'POST':
@@ -27,19 +25,16 @@ def crear(request):
 
     })
 
-@inicio_obligatorio
 def secciones(request):
     return render(request, 'secciones/secciones.html', {
         'secciones': Seccion.objects.all()
     })
 
-@inicio_obligatorio
 def eliminar(request, id):
     secciones = Seccion.objects.get(id=id)
     secciones.delete()
     return redirect(reverse('secciones:secciones'))
 
-@inicio_obligatorio
 def actualizar(request, id):
     seccion = Seccion.objects.get(id=id)
     formulario = SeccionFormulario(instance=seccion)

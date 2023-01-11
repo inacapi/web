@@ -41,7 +41,7 @@
       {% endif %}
       <div class="dropdown">
         {% if request.session.nombre %}
-        <a class="btn btn-secondary" href="{% url 'usuarios:cerrar' %}">Cerrar Sesion</a>
+        <a class="btn btn-secondary" href="{% url 'usuarios:cerrar_sesion' %}">Cerrar Sesion</a>
         {% else %}
         <button class="btn btn-secondary" data-bs-toggle="dropdown">
           Iniciar sesión

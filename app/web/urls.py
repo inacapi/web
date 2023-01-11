@@ -19,8 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     #Este ('') es para poner la ruta de la pagina principal
     path('admin/', admin.site.urls),
-    path('', include('usuarios.urls')),
-    path('estudiantes/', include('estudiantes.urls')),
+    path('', include('estudiantes.urls')),
+    path('usuarios/', include('usuarios.urls')),
     path('docentes/', include('docentes.urls')),
     path('periodos/', include('periodos.urls')),
     path('clases/', include('clases.urls')),

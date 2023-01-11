@@ -1,12 +1,10 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from periodos.models import Periodo
-from periodos.forms import PeriodoFormulario
-from django.forms import ModelForm
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from web.helpers import inicio_obligatorio
 
-@inicio_obligatorio
+from periodos.forms import PeriodoFormulario
+from periodos.models import Periodo
+
+
 def crear(request):
     formulario = PeriodoFormulario()
     if request.method == 'POST':
@@ -27,19 +25,16 @@ def crear(request):
 
     })
 
-@inicio_obligatorio
 def periodos(request):
     return render(request, 'periodos/periodos.html', {
         'periodos': Periodo.objects.all()
     })
 
-@inicio_obligatorio
 def eliminar(request, id):
     periodos = Periodo.objects.get(id=id)
     periodos.delete()
     return redirect(reverse('periodos:periodos'))
 
-@inicio_obligatorio
 def actualizar(request, id):
     periodos = Periodo.objects.get(id=id)
     formulario = PeriodoFormulario(instance=periodos)

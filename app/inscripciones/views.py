@@ -1,12 +1,10 @@
-from django.shortcuts import render , redirect
-from django.http import HttpResponse
-from inscripciones.models import Inscripcion
-from inscripciones.forms import IncripcionFormulario
-from django.forms import ModelForm
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from web.helpers import inicio_obligatorio
 
-@inicio_obligatorio
+from inscripciones.forms import IncripcionFormulario
+from inscripciones.models import Inscripcion
+
+
 def crear(request):
     formulario = IncripcionFormulario()
     if request.method == 'POST':
@@ -28,19 +26,16 @@ def crear(request):
     })
 
 
-@inicio_obligatorio
 def inscripciones(request):
     return render(request, 'inscripciones/inscripciones.html', {
         'inscripciones': Inscripcion.objects.all()
     })
 
-@inicio_obligatorio
 def eliminar(request, id):
     inscripciones = Inscripcion.objects.get(id=id)
     inscripciones.delete()
     return redirect(reverse('inscripciones:inscripciones'))
 
-@inicio_obligatorio
 def actualizar(request, id):
     inscripcion = Inscripcion.objects.get(id=id)
     formulario = IncripcionFormulario(instance=inscripcion)

@@ -1,13 +1,10 @@
-from django.shortcuts import render, redirect
-# from estudiantes.models import models
-from django.http import HttpResponse
-from estudiantes.models import Estudiante
-from estudiantes.forms import DocenteFormulario
-from django.forms import ModelForm
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from web.helpers import inicio_obligatorio
 
-@inicio_obligatorio
+from estudiantes.forms import DocenteFormulario
+from estudiantes.models import Estudiante
+
+
 def crear(request):
     formulario = DocenteFormulario()
     if request.method == 'POST':
@@ -29,19 +26,16 @@ def crear(request):
     })
 
 
-@inicio_obligatorio
 def estudiantes(request):
     return render(request, 'estudiantes/estudiantes.html', {
         'estudiantes': Estudiante.objects.all()
     })
 
-@inicio_obligatorio
 def eliminar(request, id):
     estudiante = Estudiante.objects.get(id=id)
     estudiante.delete()
     return redirect(reverse('estudiantes:estudiantes'))
 
-@inicio_obligatorio
 def actualizar(request, id):
     estudiante = Estudiante.objects.get(id=id)
     formulario = DocenteFormulario(instance=estudiante)
