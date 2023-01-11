@@ -17,7 +17,7 @@ class NotaFormulario(ModelForm):
                 }
             ),
 
-            'seccion': forms.widgets.TextInput(
+            'nota': forms.widgets.NumberInput(
                 attrs={
                 'class': 'form-control'
                 }
