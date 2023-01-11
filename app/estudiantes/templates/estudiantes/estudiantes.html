@@ -3,7 +3,8 @@
 
 
 <h1 class="text-center">Lista de estudiantes📚</h1>
-<div class="text-center"><a class="btn btn-secondary" href="{% url 'estudiantes:crear'%}" role="button">Crear Estudiantes</a></div>
+<div class="text-center"><a class="btn btn-secondary" href="{% url 'estudiantes:crear'%}" role="button">Crear
+    Estudiantes</a></div>
 <table class="table table-striped ">
   <thead>
     <tr>
@@ -17,7 +18,7 @@
   <tbody>
     {% for estudiante in estudiantes %}
     <tr>
-      <td>{{ estudiante.id }}</td>
+      <td><a class="text-decoration-none text-dark" href="{% url 'estudiantes:detalle_estudiante' estudiante.id %}">{{ estudiante.id }}</a></td>
       <td>{{ estudiante.nombre }}</td>
       <td>{{ estudiante.apellido }}</td>
       <td><a href="{% url 'estudiantes:eliminar' estudiante.id %}" class="btn btn-danger">×</a></td>

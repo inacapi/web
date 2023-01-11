@@ -53,3 +53,10 @@ def actualizar(request, id):
         'formulario': formulario,
         'titulo': 'Actualizar'
     })
+
+
+def detalle_estudiante(request, id):
+    estudiante = Estudiante.objects.get(id=id)
+    return render(request, 'estudiantes/detalle_estudiante.html', {
+        'estudiante': estudiante
+    })
