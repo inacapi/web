@@ -1,31 +1,25 @@
 {% extends "plantilla.html" %}
+
 {% block contenido %}
 
+<div class="container">
+  <h1 class="text-center">Lista de clases</h1>
 
-<h1 class="text-center">Lista de clases</h1>
-<div class="text-center"><a class="btn btn-secondary" href="{% url 'clases:crear'%}" role="button">Crear clases</a></div>
-<table class="table table-striped ">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Semestre</th>
-      <th>Eliminar</th>
-      <th>Actualizar</th>
-    </tr>
-  </thead>
-  <tbody>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2">
+
     {% for clase in clases %}
-    <tr>
-      <td>{{ clase.id }}</td>
-      <td>{{ clase.nombre }}</td>
-      <td>{{ clase.semestre }}</td>
-      <td><a href="{% url 'clases:eliminar' clase.id %}" class="btn btn-danger">×</a></td>
-      <td><a href="{% url 'clases:actualizar' clase.id %}" class="btn btn-success">×</a></td>
-    </tr>
+    <div class="col">
+      <div class="card h-100">
+        <div class="card-body text-center">
+          {{ clase.nombre }}
+          <a href="{% url 'clases:clase' clase.id %}" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-  </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+  </div>
+
 </div>
+
 {% endblock contenido %}
