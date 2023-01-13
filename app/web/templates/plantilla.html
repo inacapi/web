@@ -38,14 +38,7 @@
       {% if request.session.nombre %}
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" href="{% url 'inscripciones:inscripciones'%}">Inscripciones</a>
-          <a class="nav-link" href="{% url 'notas:notas' %}">Notas</a>
-          <a class="nav-link" href="{% url 'secciones:secciones' %}">Secciones</a>
-          <a class="nav-link" href="{% url 'matriculas:matriculas' %}">Matriculas</a>
-          <a class="nav-link" href="{% url 'periodos:periodos' %}">Periodos</a>
-          <a class="nav-link" href="{% url 'evaluaciones:evaluaciones' %}">Evaluaciones</a>
           <a class="nav-link" href="{% url 'estudiantes:estudiantes' %}">Estudiantes</a>
-          <a class="nav-link" href="{% url 'docentes:docentes' %}">Docentes</a>
           <a class="nav-link" href="{% url 'clases:clases' %}">Clases</a>
         </div>
       </div>
