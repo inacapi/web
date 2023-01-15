@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ seccion.periodo }}</h5>
                         <div class="card-text">{{ seccion.docente }}</div>
-                        <a href="{% url 'clases:seccion' seccion.clase.id seccion.id %}" class="stretched-link"></a>
+                        <a href="{% url 'clases:seccion' seccion.clase.id seccion.periodo.id seccion.id %}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
