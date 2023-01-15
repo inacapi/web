@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle estudiante 👨🏻‍🎓</title>
-</head>
-<body>
-    <td>{{ estudiante.id }}</td>
-    <td>{{ estudiante.nombre }}</td>
-    <td>{{ estudiante.apellido }}</td>
-</body>
-</html>
+{% extends 'plantilla.html' %}
+
+{% block contenido %}
+<h1 class="text-center"> {{ estudiante }}</h1>
+<div class="container">
+    <div class="row g-2 row-cols-4">
+    {% for matricula in estudiante.matriculas.all %} 
+        <div class="col">
+            <div class="card ">
+                <div class="card-body">
+                    <h4>
+                        {{ matricula.periodo }}
+                        <a href="{% url 'estudiantes:seccion_estudiante' estudiante.id matricula.id %}" class="stretched-link"></a>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock contenido %}

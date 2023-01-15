@@ -3,24 +3,20 @@
 
 
 <h1 class="text-center">Lista de estudiantes📚</h1>
-<table class="table table-striped ">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container">
+  <div class="row g-2 row-cols-4">
     {% for estudiante in estudiantes %}
-    <tr>
-      <td><a class="text-decoration-none text-dark" href="{% url 'estudiantes:detalle_estudiante' estudiante.id %}">{{ estudiante.id }}</a></td>
-      <td>{{ estudiante.nombre }}</td>
-      <td>{{ estudiante.apellido }}</td>
-    </tr>
+    <div class="col">
+      <div class="card ">
+        <div class="card-body">
+          <h5>{{ estudiante.nombre }} {{ estudiante.apellido }}</h5>
+          <a href="{% url 'estudiantes:detalle_estudiante' estudiante.id %}" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-  </tbody>
-</table>
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  </div>
 </div>
+
+
 {% endblock contenido %}

@@ -19,3 +19,13 @@ def detalle_estudiante(request, id):
     return render(request, 'estudiantes/detalle_estudiante.html', {
         'estudiante': estudiante
     })
+
+
+def seccion_estudiante(request, id, matricula):
+    estudiante = Estudiante.objects.get(id=id)
+    inscripciones = estudiante.matriculas.get(id=matricula).inscripciones.all()
+    return render(request, 'estudiantes/seccion_estudiante.html', {
+        'estudiante': estudiante,
+        'inscripciones': inscripciones,
+    })
+
