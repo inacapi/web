@@ -1,0 +1,52 @@
+{% extends 'plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container">
+    <h1>{{ seccion.clase.nombre }}</h1>
+
+    <table class="table table-bordered w-auto">
+        <thead>
+            <tr>
+                <th>Periodo</th>
+                <th>Docente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ seccion.periodo }}</td>
+                <td>{{ seccion.docente }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Estudiantes</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                {% for evaluacion in seccion.clase.evaluaciones.all %}
+                <th>
+                    {{ evaluacion.porcentaje }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for inscripcion in seccion.inscripciones.all %}
+            <tr id="{{ inscripcion.matricula.id }}">
+                <td>{{ inscripcion.matricula.estudiante.nombre }}</td>
+                <td>{{ inscripcion.matricula.estudiante.apellido }}</td>
+
+                {% for _ in seccion.clase.evaluaciones.all %}
+                <td></td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock contenido %}

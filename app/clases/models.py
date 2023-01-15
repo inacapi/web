@@ -30,7 +30,8 @@ class Docente(models.Model):
 
 class Seccion(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True, unique=True)
-    clase = models.ForeignKey(Clase, on_delete=models.RESTRICT)
+    clase = models.ForeignKey(
+        Clase, on_delete=models.RESTRICT, related_name='secciones')
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     docente = models.ForeignKey(Docente, on_delete=models.RESTRICT)
     
@@ -39,7 +40,8 @@ class Seccion(models.Model):
 
 
 class Evaluacion(models.Model):
-    clase = models.ForeignKey(Clase, on_delete=models.RESTRICT)
+    clase = models.ForeignKey(
+        Clase, on_delete=models.RESTRICT, related_name='evaluaciones')
     porcentaje = models.FloatField()
     numero = models.PositiveIntegerField()
 

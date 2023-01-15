@@ -1,6 +1,7 @@
 from django.db import models
 from clases.models import Periodo, Seccion, Evaluacion
 
+
 class Estudiante(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
@@ -23,15 +24,23 @@ class Matricula(models.Model):
 class Inscripcion(models.Model):
     matricula = models.ForeignKey(Matricula, on_delete=models.RESTRICT, related_name='inscripciones')
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
-    seccion = models.ForeignKey(Seccion, on_delete=models.RESTRICT)
+    seccion = models.ForeignKey(
+        Seccion, on_delete=models.RESTRICT, related_name='inscripciones')
 
     def __str__(self):
         return f'{self.matricula.estudiante} {self.seccion.clase}'
 
+    class Meta:
+        ordering = ['matricula__estudiante__nombre',
+                    '-matricula__estudiante__apellido']
+
 
 class Nota(models.Model):
+<<<<<<< HEAD
     inscripcion = models.ForeignKey(Inscripcion, on_delete=models.RESTRICT, related_name='notas')
+=======
+    inscripcion = models.ForeignKey(
+        Inscripcion, on_delete=models.RESTRICT, related_name='notas')
+>>>>>>> 8042036 (Detalle de clases y secciones)
     evaluacion = models.ForeignKey(Evaluacion, on_delete=models.RESTRICT)
     nota = models.PositiveIntegerField()
-
-

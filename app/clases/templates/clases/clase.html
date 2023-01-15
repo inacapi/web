@@ -3,7 +3,45 @@
 {% block contenido %}
 
 <div class="container">
-    <h1>{{ clase.nombre }}</h1>
+    <h1 class="mb-4">{{ clase.nombre }}</h1>
+
+    <div class="mb-4">
+        <h2>Evaluaciones</h2>
+        <table class="table table-bordered w-auto">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Porcentaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluacion in clase.evaluaciones.all %}
+                <tr>
+                    <td>{{ evaluacion.numero }}</td>
+                    <td>{{ evaluacion.porcentaje }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-4">
+        <h2>Secciones</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2">
+            {% for seccion in clase.secciones.all %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ seccion.periodo }}</h5>
+                        <div class="card-text">{{ seccion.docente }}</div>
+                        <a href="{% url 'clases:seccion' seccion.clase.id seccion.id %}" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 </div>
 
 {% endblock contenido %}
