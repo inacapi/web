@@ -69,8 +69,8 @@ obtener_clases()
 
 // Añade una clase con una petición POST
 document.getElementById('guardar').addEventListener('click', async () => {
-    const nombre = document.getElementById('id_nombre').value
-    const semestre = document.getElementById('id_semestre').value
+    const nombre = document.getElementById('id_nombre')
+    const semestre = document.getElementById('id_semestre')
 
     const respuesta = await fetch('http://localhost:8000/api/clases/', {
         method: 'POST',
@@ -79,8 +79,8 @@ document.getElementById('guardar').addEventListener('click', async () => {
             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
         },
         body: JSON.stringify({
-            'nombre': nombre,
-            'semestre': semestre
+            'nombre': nombre.value,
+            'semestre': semestre.value
         })
     })
 
