@@ -8,7 +8,7 @@ class InicioObligatorio(object):
 
     def __call__(self, request):
         ruta = request.META.get('PATH_INFO')
-        if not 'iniciar_sesion' in ruta and not ruta.startswith('/admin'):
+        if not 'iniciar_sesion' in ruta and not ruta.startswith('/admin') and not ruta.startswith('/api'):
             if not 'nombre' in request.session or request.session['nombre'] is None:
                 return redirect(reverse('usuarios:iniciar_sesion'))
 
