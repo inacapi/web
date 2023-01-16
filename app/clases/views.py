@@ -1,11 +1,12 @@
 from django.shortcuts import render
 
 from clases.models import Clase
+from clases.forms import ClaseFormulario
 
 
 def clases(request):
     return render(request, 'clases/clases.html', {
-        'clases': Clase.objects.all()
+        'formulario': ClaseFormulario()
     })
 
 

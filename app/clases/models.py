@@ -8,9 +8,6 @@ class Clase(models.Model):
     def __str__(self):
         return f'{self.nombre}'
 
-    class Meta:
-        ordering = ['semestre', 'nombre']
-
 
 class Periodo(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
