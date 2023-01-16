@@ -1,20 +1,17 @@
-{% extends "plantilla.html" %}
+{% extends 'plantilla.html' %}
+
+{% load static %}
 
 {% block contenido %}
 
+<!-- Lista con las clases -->
 <div class="container">
   <h1 class="text-center">Lista de clases</h1>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2" id="clases">
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body text-center">
-          <button class="btn btn-primary" data-bs-target="#modal" data-bs-toggle="modal">Agregar clase</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
+<!-- Modal para añadir clases -->
 <div class="modal fade" id="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -23,9 +20,9 @@
         <button class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <form method="post">
-          {% csrf_token %}
+        <form>
           {{ formulario }}
+          {% csrf_token %}
         </form>
       </div>
       <div class="modal-footer">
@@ -36,52 +33,7 @@
   </div>
 </div>
 
-<script>
-  const clases = document.getElementById('clases')
-  const obtener_clases = async () => {
-    const respuesta = await fetch('http://localhost:8000/api/clases', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    if (respuesta.ok) {
-      const datos = await respuesta.json()
-
-      datos.sort((a, b) => {
-        if (a.semestre > b.semestre) {
-          return 1
-        } else if (a.semestre < b.semestre) {
-          return -1
-        } else {
-          if (a.nombre > b.nombre) {
-            return 1
-          } else if (a.nombre < b.nombre) {
-            return -1
-          } else {
-            return 0
-          }
-        }
-      })
-
-      for (const clase of datos) {
-        const clase_html = `
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body text-center">
-                ${clase.nombre}
-                <a href="/clases/${clase.id}" class="stretched-link"></a>
-              </div>
-            </div>
-          </div>
-        `
-        clases.innerHTML += clase_html
-      }
-
-    }
-  }
-  obtener_clases()
-
-</script>
+<!-- Script para gestionar las clases -->
+<script src="{% static 'clases/clases.js' %}"></script>
 
 {% endblock contenido %}
