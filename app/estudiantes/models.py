@@ -36,11 +36,6 @@ class Inscripcion(models.Model):
 
 
 class Nota(models.Model):
-<<<<<<< HEAD
     inscripcion = models.ForeignKey(Inscripcion, on_delete=models.RESTRICT, related_name='notas')
-=======
-    inscripcion = models.ForeignKey(
-        Inscripcion, on_delete=models.RESTRICT, related_name='notas')
->>>>>>> 8042036 (Detalle de clases y secciones)
     evaluacion = models.ForeignKey(Evaluacion, on_delete=models.RESTRICT)
     nota = models.PositiveIntegerField()
