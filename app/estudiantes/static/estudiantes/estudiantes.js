@@ -1,6 +1,6 @@
 async  function guardar() {
-  const nombre = document.getElementById("id_nombre").value;
-  const apellido = document.getElementById("id_apellido").value;
+  const nombre = document.getElementById("id_nombre")
+  const apellido = document.getElementById("id_apellido")
   await fetch("http://localhost:8000/api/estudiantes/", {
     method: "POST",
     headers: {
@@ -8,11 +8,13 @@ async  function guardar() {
       "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
     },
     body: JSON.stringify({
-      nombre: nombre,
-      apellido: apellido,
+      nombre: nombre.value,
+      apellido: apellido.value,
     }),
-  });
+  })
   bootstrap.Modal.getInstance(document.getElementById("modal")).hide();
+  nombre.value = "";
+  apellido.value = "";
   cargar_estudiantes();
 }
 
