@@ -8,6 +8,9 @@ class Clase(models.Model):
     def __str__(self):
         return f'{self.nombre}'
 
+    class Meta:
+        ordering = ['semestre', 'nombre']
+
 
 class Periodo(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
@@ -31,7 +34,7 @@ class Seccion(models.Model):
         Clase, on_delete=models.RESTRICT, related_name='secciones')
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     docente = models.ForeignKey(Docente, on_delete=models.RESTRICT)
-    
+
     def __str__(self):
         return f'{self.id}  {self.clase.nombre} {self.docente}'
 

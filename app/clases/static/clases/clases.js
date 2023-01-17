@@ -1,22 +1,3 @@
-// Ordena las clases por semestre y nombre
-const ordenar_clases = (clases) => {
-    clases.sort((a, b) => {
-        if (a.semestre > b.semestre) {
-            return 1
-        } else if (a.semestre < b.semestre) {
-            return -1
-        } else {
-            if (a.nombre > b.nombre) {
-                return 1
-            } else if (a.nombre < b.nombre) {
-                return -1
-            } else {
-                return 0
-            }
-        }
-    })
-}
-
 // Convierte una clase en una carta de bootstrap
 const clase_a_carta = (clase) => {
     return `
@@ -41,7 +22,6 @@ const obtener_clases = async () => {
     if (respuesta.ok) {
         const clases = document.getElementById('clases')
         const datos = await respuesta.json()
-        ordenar_clases(datos)
 
         // Limpiar el div de clases
         clases.innerHTML = ''
