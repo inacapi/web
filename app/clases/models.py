@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Clase(models.Model):
@@ -42,8 +43,12 @@ class Seccion(models.Model):
 class Evaluacion(models.Model):
     clase = models.ForeignKey(
         Clase, on_delete=models.RESTRICT, related_name='evaluaciones')
-    porcentaje = models.FloatField()
+    porcentaje = models.FloatField(
+        validators=[MinValueValidator(0), MaxValueValidator(1)])
     numero = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ['clase', 'numero']
 
     def __str__(self):
         return f'{self.numero} - {self.porcentaje*100}% - {self.clase}'

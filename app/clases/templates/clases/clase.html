@@ -1,6 +1,10 @@
 {% extends 'plantilla.html' %}
 
+{% load static %}
+
 {% block contenido %}
+
+<input type="hidden" id="id_clase" value="{{ clase.id }}">
 
 <div class="container">
     <h1 class="mb-4">{{ clase.nombre }}</h1>
@@ -14,14 +18,17 @@
                     <th>Porcentaje</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for evaluacion in clase.evaluaciones.all %}
+            <tbody id="evaluaciones"></tbody>
+            <tfoot>
                 <tr>
-                    <td>{{ evaluacion.numero }}</td>
-                    <td>{{ evaluacion.porcentaje }}</td>
+                    <td colspan="2" class="text-center">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modal_evaluacion">
+                            Agregar evaluación
+                        </button>
+                    </td>
                 </tr>
-                {% endfor %}
-            </tbody>
+            </tfoot>
         </table>
     </div>
 
@@ -43,5 +50,29 @@
     </div>
 
 </div>
+
+<!-- Modal para añadir evaluaciones -->
+<div class="modal fade" id="modal_evaluacion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar evaluación</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {{ formulario }}
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="guardar_evaluacion">Guardar evaluación</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'clases/clase.js' %}"></script>
 
 {% endblock contenido %}
