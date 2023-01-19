@@ -36,6 +36,9 @@ class Seccion(models.Model):
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     docente = models.ForeignKey(Docente, on_delete=models.RESTRICT)
 
+    class Meta:
+        unique_together = ['clase', 'periodo', 'docente']
+
     def __str__(self):
         return f'{self.id}  {self.clase.nombre} {self.docente}'
 

@@ -34,19 +34,8 @@
 
     <div class="mb-4">
         <h2>Secciones</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2">
-            {% for seccion in clase.secciones.all %}
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ seccion.periodo }}</h5>
-                        <div class="card-text">{{ seccion.docente }}</div>
-                        <a href="{% url 'clases:seccion' seccion.clase.id seccion.periodo.id seccion.id %}" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2"
+            id="secciones"></div>
     </div>
 
 </div>
@@ -61,13 +50,35 @@
             </div>
             <div class="modal-body">
                 <form>
-                    {{ formulario }}
+                    {{ formulario_evaluacion }}
                     {% csrf_token %}
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button class="btn btn-primary" id="guardar_evaluacion">Guardar evaluación</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para añadir secciones -->
+<div class="modal fade" id="modal_seccion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar sección</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {{ formulario_seccion }}
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="guardar_seccion">Guardar sección</button>
             </div>
         </div>
     </div>
