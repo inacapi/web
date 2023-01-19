@@ -13,21 +13,21 @@
                             {{ inscripcion.seccion.clase }}</div>
                         <div>{{ inscripcion.seccion.docente }} </div>
                     </h4>
-                    
+
                     <h5>Notas</h5>
                     <table class="table">
-                        {% for nota  in inscripcion.notas.all %}
+                        {% for nota in inscripcion.notas.all %}
                         <tr>
                             <td>{{ nota.nota }}</td>
                             <td>{{ nota.evaluacion.porcentaje }}</td>
-                        </tr>        
+                        </tr>
                         {% endfor %}
-                    
+
                     </table>
                 </div>
             </div>
-        
-    
+
+
         </div>
 
 

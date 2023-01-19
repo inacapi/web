@@ -5,5 +5,5 @@ app_name = 'estudiantes'
 urlpatterns = [
     path('', views.estudiantes, name='estudiantes'),
     path('<int:id>', views.estudiante, name='estudiante'),
-    path('seccion_estudiante/<int:id>/<int:matricula>', views.seccion_estudiante, name='seccion_estudiante'),
+    path('<int:id_estudiante>/<int:id_periodo>/<int:id_matricula>', views.secciones, name='secciones'),
 ]

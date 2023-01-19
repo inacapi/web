@@ -1,7 +1,7 @@
 
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from estudiantes.forms import EstudianteFormulario
+from estudiantes.forms import EstudianteFormulario , MatriculaFormulario
 from estudiantes.models import Estudiante
 
 
@@ -18,15 +18,16 @@ def estudiantes(request):
 def estudiante(request, id):
     estudiante = Estudiante.objects.get(id=id)
     return render(request, 'estudiantes/estudiante.html', {
-        'estudiante': estudiante
+        'estudiante': estudiante,
+        'formulario': MatriculaFormulario()
     })
 
 
-def seccion_estudiante(request, id, matricula):
-    estudiante = Estudiante.objects.get(id=id)
-    inscripciones = estudiante.matriculas.get(id=matricula).inscripciones.all()
+def secciones(request, id_estudiante,id_periodo, id_matricula):
+    estudiante = Estudiante.objects.get(id=id_estudiante)
+    inscripciones = estudiante.matriculas.get(id=id_matricula).inscripciones.all()
     
-    return render(request, 'estudiantes/seccion_estudiante.html', {
+    return render(request, 'estudiantes/secciones.html', {
         'estudiante': estudiante,
         'inscripciones': inscripciones,
     })

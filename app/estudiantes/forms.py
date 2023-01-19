@@ -1,6 +1,7 @@
-from .models import Estudiante
-from django.forms import ModelForm 
+from .models import Estudiante, Matricula
+from django.forms import ModelForm
 from django import forms
+
 
 class DocenteFormulario(ModelForm):
     class Meta:
@@ -19,7 +20,6 @@ class DocenteFormulario(ModelForm):
             ),
         }
         fields = ['nombre', 'apellido']
-
 
 
 class EstudianteFormulario(ModelForm):
@@ -41,4 +41,24 @@ class EstudianteFormulario(ModelForm):
         fields = ['nombre', 'apellido']
 
 
+class MatriculaFormulario(ModelForm):
+    class Meta:
+        model = Matricula
+        widgets = {
 
+            'id': forms.widgets.NumberInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
+
+            'periodo': forms.widgets.Select(
+                attrs={
+                    'class': 'form-select'
+                }
+            ),
+
+
+        }
+        fields = ['id', 'periodo']
