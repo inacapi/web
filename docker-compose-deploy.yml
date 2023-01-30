@@ -3,31 +3,53 @@ version: '3.9'
 services:
   app:
     build: .
+    restart: always
     volumes:
       - static_data:/vol/web
     depends_on:
       - db
-    environment:
-      - DEBUG=False
+    env_file:
+      - .env
 
   db:
     image: mysql:8.0
+    restart: always
     volumes:
       - mysql_data:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=inacapi
-      - MYSQL_DATABASE=inacapi
-      - MYSQL_USER=inacapi
-      - MYSQL_PASSWORD=inacapi
+    env_file:
+      - .env
 
   proxy:
     build:
-      context: ./proxy
+      context: ./docker/proxy
+    restart: always
     ports:
-      - "8080:8080"
+      - 80:80
+      - 443:443
+    volumes:
+      - certbot_web:/vol/www
+      - proxy_dhparams:/vol/proxy
+      - certbot_certs:/etc/letsencrypt
     depends_on:
       - app
+    env_file:
+      - .env
+
+  certbot:
+    build:
+      context: ./docker/certbot
+    command: echo "Skipping certbot..."
+    env_file:
+      - .env
+    volumes:
+      - certbot_web:/vol/www
+      - certbot_certs:/etc/letsencrypt
+    depends_on:
+      - proxy
 
 volumes:
   static_data:
   mysql_data:
+  certbot_web:
+  proxy_dhparams:
+  certbot_certs:
