@@ -5,7 +5,7 @@ services:
     build: .
     restart: always
     volumes:
-      - static_data:/vol/web
+      - static_data:/vol/static
     depends_on:
       - db
     env_file:
@@ -27,6 +27,7 @@ services:
       - 80:80
       - 443:443
     volumes:
+      - static_data:/vol/static
       - certbot_web:/vol/www
       - proxy_dhparams:/vol/proxy
       - certbot_certs:/etc/letsencrypt
