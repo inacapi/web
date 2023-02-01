@@ -20,4 +20,4 @@ RUN chown -R inacapi:inacapi /app
 RUN chmod -R 755 /vol/web
 USER inacapi
 
-CMD ["entrypoint.sh"]
+CMD ["uwgsi", "--socket", ":8000", "--workers", "4", "--master", "--enable-threads", "--module", "web.wsgi"]
