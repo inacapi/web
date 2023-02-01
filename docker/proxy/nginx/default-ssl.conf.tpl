@@ -31,7 +31,7 @@ server {
     location / {
         uwsgi_pass ${APP_HOST}:${APP_PORT};
         include /etc/nginx/uwsgi_params;
-        proxy_set_header X-Forwarded-Proto https;
+        uwsgi_param HTTP_X_FORWARDED_PROTO https;
         client_max_body_size 10M;
     }
 }
