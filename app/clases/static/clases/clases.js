@@ -1,3 +1,5 @@
+const hostname = window.location.origin
+
 // Convierte una clase en una carta de bootstrap
 const clase_a_carta = (clase) => {
     return `
@@ -14,7 +16,7 @@ const clase_a_carta = (clase) => {
 
 // Lee las clases con una petición GET
 const obtener_clases = async () => {
-    const respuesta = await fetch('http://localhost:8000/api/clases/', {
+    const respuesta = await fetch(`${hostname}/api/clases/`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -52,7 +54,7 @@ document.getElementById('guardar').addEventListener('click', async () => {
     const nombre = document.getElementById('id_nombre')
     const semestre = document.getElementById('id_semestre')
 
-    const respuesta = await fetch('http://localhost:8000/api/clases/', {
+    const respuesta = await fetch(`${hostname}/api/clases/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

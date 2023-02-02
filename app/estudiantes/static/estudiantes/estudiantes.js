@@ -1,7 +1,9 @@
+const hostname = window.location.origin
+
 async  function guardar() {
   const nombre = document.getElementById("id_nombre")
   const apellido = document.getElementById("id_apellido")
-  await fetch("http://localhost:8000/api/estudiantes/", {
+  await fetch(`${hostname}/api/estudiantes/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +21,7 @@ async  function guardar() {
 }
 
 async function cargar_estudiantes() {
-  const respuesta = await fetch("http://localhost:8000/api/estudiantes/", {
+  const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

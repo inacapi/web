@@ -1,8 +1,10 @@
+const hostname = window.location.origin
+
 async function guardar() {
     const id_estudiante = document.getElementById("id_estudiante").value;
     const id = document.getElementById("id_id")
     const periodo = document.getElementById("id_periodo")
-    const respuesta = await fetch(`http://localhost:8000/api/estudiantes/${id_estudiante}/matriculas/`, {
+    const respuesta = await fetch(`${hostname}/api/estudiantes/${id_estudiante}/matriculas/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -24,7 +26,7 @@ async function guardar() {
 
 async function cargar_matricula() {
     const id_estudiante = document.getElementById("id_estudiante").value;
-    const respuesta = await fetch(`http://localhost:8000/api/estudiantes/${id_estudiante}/matriculas/`, {
+    const respuesta = await fetch(`${hostname}/api/estudiantes/${id_estudiante}/matriculas/`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
