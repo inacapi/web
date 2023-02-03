@@ -1,8 +1,14 @@
 {% extends 'plantilla.html' %}
 
+{% load static %}
+
 {% block titulo %}{{ seccion.clase.nombre }}{% endblock titulo %}
 
 {% block contenido %}
+
+<input type="hidden" id="id_clase" value="{{ seccion.clase.id }}">
+<input type="hidden" id="id_periodo" value="{{ seccion.periodo.id }}">
+<input type="hidden" id="id_seccion" value="{{ seccion.id }}">
 
 <div class="container">
     <h1>{{ seccion.clase.nombre }}</h1>
@@ -22,7 +28,12 @@
         </tbody>
     </table>
 
-    <h2>Estudiantes</h2>
+    <h2>Inscripciones</h2>
+
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modal_inscripcion">
+        Agregar inscripción
+    </button>
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -30,25 +41,38 @@
                 <th>Apellido</th>
                 {% for evaluacion in seccion.clase.evaluaciones.all %}
                 <th>
-                    {{ evaluacion.porcentaje }}
+                    {{ evaluacion.porcentaje_en_porcentaje }}
                 </th>
                 {% endfor %}
             </tr>
         </thead>
-        <tbody>
-            {% for inscripcion in seccion.inscripciones.all %}
-            <tr id="{{ inscripcion.matricula.id }}">
-                <td>{{ inscripcion.matricula.estudiante.nombre }}</td>
-                <td>{{ inscripcion.matricula.estudiante.apellido }}</td>
-
-                {% for _ in seccion.clase.evaluaciones.all %}
-                <td></td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
+        <tbody id="inscripciones"></tbody>
     </table>
 
 </div>
+
+<!-- Modal para añadir inscripciones -->
+<div class="modal fade" id="modal_inscripcion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Agregar inscripción</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {{ formulario_inscripcion }}
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="guardar_inscripcion">Guardar inscripción</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'clases/seccion.js' %}"></script>
 
 {% endblock contenido %}

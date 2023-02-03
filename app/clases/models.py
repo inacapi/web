@@ -50,8 +50,13 @@ class Evaluacion(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(1)])
     numero = models.PositiveIntegerField()
 
+    @property
+    def porcentaje_en_porcentaje(self):
+        return f'{int(self.porcentaje * 100)}%'
+
     class Meta:
         unique_together = ['clase', 'numero']
+        ordering = ['clase__nombre', 'numero']
 
     def __str__(self):
         return f'{self.numero} - {self.porcentaje*100}% - {self.clase}'

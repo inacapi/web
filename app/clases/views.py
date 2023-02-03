@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from clases.models import Clase
-from clases.forms import ClaseFormulario, EvaluacionFormulario, SeccionFormulario
+from clases.forms import ClaseFormulario, EvaluacionFormulario, SeccionFormulario, InscripcionFormulario
 
 
 def clases(request):
@@ -23,5 +23,6 @@ def seccion(request, id_clase, id_periodo, id_seccion):
     clase = Clase.objects.get(id=id_clase)
     seccion = clase.secciones.get(id=id_seccion)
     return render(request, 'clases/seccion.html', {
-        'seccion': seccion
+        'seccion': seccion,
+        'formulario_inscripcion': InscripcionFormulario(periodo=id_periodo)
     })
