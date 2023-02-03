@@ -1,15 +1,18 @@
 {% extends "plantilla.html" %}
-{% load static %}
-{% block contenido %}
 
+{% load static %}
+
+{% block titulo %}Estudiantes{% endblock titulo %}
+
+{% block contenido %}
 
 <h1 class="text-center">Lista de estudiantes📚</h1>
 <div class="container">
   <div class="row g-2 row-cols-4" id="estudiantes">
   </div>
 </div>
-<!-- Este es el modal que se muestra al dar click en el boton -->
 
+<!-- Este es el modal que se muestra al dar click en el boton -->
 <div class="modal fade" id="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -31,9 +34,7 @@
     </div>
   </div>
 </div>
-<script src="{% static 'estudiantes/estudiantes.js' %}">
-  
-</script>
 
+<script src="{% static 'estudiantes/estudiantes.js' %}"></script>
 
 {% endblock contenido %}

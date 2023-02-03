@@ -1,8 +1,14 @@
 {% extends 'plantilla.html' %}
+
 {% load static %}
+
+{% block titulo %}{{ estudiante }}{% endblock titulo %}
+
 {% block contenido %}
+
 <input type="hidden" id="id_estudiante" value="{{ estudiante.id }}">
-<h1 class="text-center"> {{ estudiante }}</h1>
+
+<h1 class="text-center">{{ estudiante }}</h1>
 <div class="container">
     <div class="row g-2 row-cols-4" id="matriculas">
     </div>
@@ -28,8 +34,7 @@
         </div>
     </div>
 </div>
-<script src="{% static 'estudiantes/matricula.js' %}">
 
-</script>
+<script src="{% static 'estudiantes/matricula.js' %}"></script>
 
 {% endblock contenido %}

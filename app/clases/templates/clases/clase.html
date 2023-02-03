@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block titulo %}{{ clase.nombre }}{% endblock titulo %}
+
 {% block contenido %}
 
 <input type="hidden" id="id_clase" value="{{ clase.id }}">

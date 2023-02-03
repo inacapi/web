@@ -4,16 +4,19 @@
 
 {% block contenido %}
 
+<div class="container my-3">
+  {% if mensaje_error %}
+  <p class="alert alert-danger">{{ mensaje_error }}</p>
+  {% endif %}
 
-{% if mensaje_error %}
-<p class="alert alert-danger">{{ mensaje_error }}</p>
-{% endif %}
-<form method="post">
-  <div class="container-md form-row align-items-center">
+  <h1>Iniciar sesión 🧑🏻‍💻</h1>
+
+  <form method="post">
     {% csrf_token %}
-    <h1>Iniciar sesión 🧑🏻‍💻</h1>
     {{ formulario }}
     <input type="submit" class="btn btn-secondary form-control mt-4" value="Iniciar sesión">
-  </div>
-</form>
+  </form>
+
+</div>
+
 {% endblock contenido %}

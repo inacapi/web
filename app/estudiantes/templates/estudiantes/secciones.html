@@ -1,6 +1,9 @@
 {% extends 'plantilla.html' %}
 
+{% block titulo %}{{ estudiante }}{% endblock titulo %}
+
 {% block contenido %}
+
 <h1 class="text-center"> {{ estudiante }}</h1>
 <div class="container">
     <div class="row g-2 row-cols-4">
@@ -26,14 +29,9 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
-
-
         {% endfor %}
     </div>
 </div>
-
 
 {% endblock contenido %}
