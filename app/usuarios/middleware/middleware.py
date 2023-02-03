@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect
 
 
-class InicioObligatorio(object):
+class InicioObligatorioMiddleware(object):
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -15,5 +15,16 @@ class InicioObligatorio(object):
         if not request.user.is_authenticated:
             if not any(ruta.startswith(ruta_excluida) for ruta_excluida in rutas_excluidas):
                 return redirect(reverse('usuarios:iniciar_sesion'))
+
+        return self.get_response(request)
+
+
+class TokenMiddleware(object):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request: HttpRequest):
+        token = request.session.get('token', '')
+        request.META['HTTP_AUTHORIZATION'] = f'Token {token}'
 
         return self.get_response(request)

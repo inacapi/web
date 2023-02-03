@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from usuarios.forms import UsuarioFormulario
+from rest_framework.authtoken.models import Token
 
 
 def iniciar_sesion(request):
@@ -17,6 +18,10 @@ def iniciar_sesion(request):
 
         if user is not None:
             login(request, user)
+
+            token, _ = Token.objects.get_or_create(user=user)
+            request.session['token'] = token.key
+
             return redirect(reverse('estudiantes:estudiantes'))
 
         else:
