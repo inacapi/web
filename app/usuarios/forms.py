@@ -1,22 +1,21 @@
-from .models import Usuario
-from django.forms import ModelForm 
 from django import forms
 
-class UsuarioFormulario(ModelForm):
-    class Meta:
-        model = Usuario
-        widgets = {
 
-            'nombre' : forms.widgets.TextInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
+class UsuarioFormulario(forms.Form):
+    username = forms.CharField(
+        label='Nombre de usuario',
+        widget=forms.widgets.TextInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )
 
-            'contrasena': forms.widgets.PasswordInput(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
-        }
-        fields = '__all__' 
+    password = forms.CharField(
+        label='Contraseña',
+        widget=forms.widgets.PasswordInput(
+            attrs={
+                'class': 'form-control'
+            }
+        )
+    )

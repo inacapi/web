@@ -21,41 +21,23 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav class="navbar navbar-expand-sm bg-light">
     <div class="container-fluid">
-      <div class="dropdown">
-        {% if request.session.nombre %}
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          Inacapi˚ʚ♡ɞ˚
-        </button>
-        {% endif %}
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" href="#">Obtener Token</a></li>
-          <li><a class="dropdown-item" href="#">Consultar Datos</a></li>
-        </ul>
-      </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
-      {% if request.session.nombre %}
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
+          {% if request.user.is_authenticated %}
+          <a class="nav-link" href="{% url 'usuarios:cerrar_sesion' %}">Cerrar sesión</a>
           <a class="nav-link" href="{% url 'estudiantes:estudiantes' %}">Estudiantes</a>
           <a class="nav-link" href="{% url 'clases:clases' %}">Clases</a>
+          {% endif %}
+          <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
         </div>
       </div>
-      {% endif %}
-      <div class="dropdown">
-        {% if request.session.nombre %}
-        <a class="btn btn-secondary" href="{% url 'usuarios:cerrar_sesion' %}">Cerrar Sesion</a>
-        {% else %}
-        <button class="btn btn-secondary" data-bs-toggle="dropdown">
-          Iniciar sesión
-        </button>
-        {% endif %}
-      </div>
+
     </div>
   </nav>
   {% block contenido %}

@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.http import HttpRequest
 from django.shortcuts import redirect
 
 
@@ -6,10 +7,13 @@ class InicioObligatorio(object):
     def __init__(self, get_response):
         self.get_response = get_response
 
-    def __call__(self, request):
+    def __call__(self, request: HttpRequest):
         ruta = request.META.get('PATH_INFO')
-        if not 'iniciar_sesion' in ruta and not ruta.startswith('/admin') and not ruta.startswith('/api'):
-            if not 'nombre' in request.session or request.session['nombre'] is None:
+
+        rutas_excluidas = ['/admin/', '/api/', '/usuarios/iniciar_sesion/']
+
+        if not request.user.is_authenticated:
+            if not any(ruta.startswith(ruta_excluida) for ruta_excluida in rutas_excluidas):
                 return redirect(reverse('usuarios:iniciar_sesion'))
 
         return self.get_response(request)

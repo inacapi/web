@@ -1,31 +1,35 @@
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
-
 from usuarios.forms import UsuarioFormulario
-from usuarios.functions import guardar_sesion, limpiar_sesion
-from usuarios.models import Usuario
 
 
 def iniciar_sesion(request):
+    formulario = UsuarioFormulario()
+
     if request.method == 'POST':
         formulario = UsuarioFormulario(request.POST)
-        try:
-            usuario = Usuario.objects.get(
-                nombre=formulario.data['nombre'], contrasena=formulario.data['contrasena'])
-            guardar_sesion(request, usuario)
+
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
             return redirect(reverse('estudiantes:estudiantes'))
-        except Usuario.DoesNotExist:
+
+        else:
             return render(request, 'usuarios/iniciar_sesion.html', {
                 'formulario': formulario,
-                'mensaje_error': 'usuario o contraseña incorrecta'
+                'mensaje_error': 'Nombre de usuario o contraseña incorrecta'
             })
 
-    formulario = UsuarioFormulario()
     return render(request, 'usuarios/iniciar_sesion.html', {
         'formulario': formulario
     })
 
 
 def cerrar_sesion(request):
-    limpiar_sesion(request)
+    logout(request)
     return redirect(reverse('usuarios:iniciar_sesion'))
