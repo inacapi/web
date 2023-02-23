@@ -1,7 +1,10 @@
+import json
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from clases.models import Clase
+from estudiantes.models import Inscripcion
 from clases.serializers import ClaseSerializer, EvaluacionSerializer, SeccionSerializer, InscripcionSerializer
 
 
@@ -65,3 +68,16 @@ def inscripciones(request, id_clase, id_seccion):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
+@api_view(['POST'])
+def actualizar_notas(request):
+    body = json.loads(request.body.decode('utf-8'))
+    seccion = body.get('seccion')
+    inscripciones = Inscripcion.objects.filter(seccion=seccion)
+
+    for inscripcion in inscripciones:
+        print(
+            f'{inscripcion.periodo.id}:{inscripcion.seccion.id}:{inscripcion.matricula.id}')
+
+    return Response(status=200)
