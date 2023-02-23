@@ -21,5 +21,9 @@ services:
       - MYSQL_USER=inacapi
       - MYSQL_PASSWORD=inacapi
 
+  api:
+    image: ghcr.io/inacapi/api:1.0
+    restart: always
+
 volumes:
   mysql_data:

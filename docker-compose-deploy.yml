@@ -19,6 +19,10 @@ services:
     env_file:
       - .env
 
+  api:
+    image: ghcr.io/inacapi/api:1.0
+    restart: always
+
   proxy:
     build:
       context: ./docker/proxy
