@@ -69,3 +69,20 @@ function inscripcion_a_fila(inscripcion) {
 
     return tr.outerHTML
 }
+
+// Botón para actualizar las notas
+document.querySelector('#actualizar_notas').addEventListener('click', async () => {
+    const respuesta = await fetch(`${hostname}/api/clases/actualizar_notas/`, {
+        method: 'POST',
+        body: JSON.stringify({
+            seccion: seccion,
+        })
+    })
+
+    if (!respuesta.ok) {
+        alert((await respuesta.json())['mensaje_error'])
+        return
+    }
+
+    obtener_inscripciones()
+})
