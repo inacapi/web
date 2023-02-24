@@ -8,9 +8,11 @@
 
 <input type="hidden" id="id_estudiante" value="{{ estudiante.id }}">
 
-<h1 class="text-center">{{ estudiante }}</h1>
 <div class="container">
-    <div class="row g-2 row-cols-4" id="matriculas">
+    <h1>{{ estudiante }}</h1>
+    <button type="button" class="btn btn-primary mb-3" data-bs-target="#modal" data-bs-toggle="modal">Añadir
+        matrícula</button>
+    <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" id="matriculas">
     </div>
 </div>
 
@@ -18,7 +20,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Creacion de la matricula ♡₊˚ 🦢</h5>
+                <h5 class="modal-title">Añadir matrícula</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -28,13 +30,13 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" id="guardar" class="btn btn-success">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="guardar" class="btn btn-primary">Guardar matrícula</button>
             </div>
         </div>
     </div>
 </div>
 
-<script src="{% static 'estudiantes/matricula.js' %}"></script>
+<script src="{% static 'estudiantes/estudiante.js' %}"></script>
 
 {% endblock contenido %}

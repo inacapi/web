@@ -23,7 +23,7 @@ class Matricula(models.Model):
         unique_together = ['periodo', 'estudiante']
 
     def __str__(self):
-        return f'{self.id}  {self.estudiante.nombre} {self.estudiante.apellido}'
+        return f'{self.estudiante.nombre} {self.estudiante.apellido}'
 
 
 class Inscripcion(models.Model):

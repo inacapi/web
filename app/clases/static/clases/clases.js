@@ -5,7 +5,7 @@ const clase_a_carta = (clase) => {
     return `
         <div class="col">
             <div class="card h-100">
-                <div class="card-body text-center">
+                <div class="card-body text-center d-flex align-items-center justify-content-center">
                     ${clase.nombre}
                     <a href="/clases/${clase.id}" class="stretched-link"></a>
                 </div>
@@ -27,17 +27,6 @@ const obtener_clases = async () => {
 
         // Limpiar el div de clases
         clases.innerHTML = ''
-
-        // Agregar una carta para agregar una clase
-        clases.innerHTML += `
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <button class="btn btn-primary" data-bs-target="#modal" data-bs-toggle="modal">Agregar clase</button>
-                    </div>
-                </div>
-            </div>
-        `
 
         // Agregar una carta para cada clase
         datos.map(clase => {

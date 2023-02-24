@@ -4,34 +4,8 @@
 
 {% block contenido %}
 
-<h1 class="text-center"> {{ estudiante }}</h1>
 <div class="container">
-    <div class="row g-2 row-cols-4">
-        {% for inscripcion in inscripciones %}
-        <div class="col">
-            <div class="card ">
-                <div class="card-body">
-                    <h4>
-                        <div>
-                            {{ inscripcion.seccion.clase }}</div>
-                        <div>{{ inscripcion.seccion.docente }} </div>
-                    </h4>
-
-                    <h5>Notas</h5>
-                    <table class="table">
-                        {% for nota in inscripcion.notas.all %}
-                        <tr>
-                            <td>{{ nota.nota }}</td>
-                            <td>{{ nota.evaluacion.porcentaje }}</td>
-                        </tr>
-                        {% endfor %}
-
-                    </table>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <h1> {{ estudiante }}</h1>
 </div>
 
 {% endblock contenido %}

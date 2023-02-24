@@ -68,9 +68,8 @@ const seccion_a_carta = (seccion) => {
     return `
         <div class="col">
             <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">${seccion.nombre_periodo}</h5>
-                    <p class="card-text">${seccion.nombre_docente}</p>
+                <div class="card-body text-center d-flex justify-content-center align-items-center">
+                    ${seccion.nombre_periodo} - ${seccion.nombre_docente}
                     <a href="/clases/${seccion.clase}/${seccion.periodo}/${seccion.id}/" class="stretched-link"></a>
                 </div>
             </div>
@@ -91,18 +90,6 @@ const obtener_secciones = async () => {
 
         // Limpiar el div de secciones
         secciones.innerHTML = ''
-
-        // Agregar carta para añadir sección
-        secciones.innerHTML += `
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_seccion">Añadir
-                            sección</a>
-                    </div>
-                </div>
-            </div>
-        `
 
         // Agregar una fila para cada sección
         datos.map(seccion => {

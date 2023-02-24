@@ -1,6 +1,6 @@
 const hostname = window.location.origin
 
-async  function guardar() {
+async function guardar() {
   const nombre = document.getElementById("id_nombre")
   const apellido = document.getElementById("id_apellido")
   await fetch(`${hostname}/api/estudiantes/`, {
@@ -32,22 +32,13 @@ async function cargar_estudiantes() {
 
   const estudiantes = await respuesta.json();
   contenedor_estudiantes.innerHTML = "";
-  contenedor_estudiantes.innerHTML += `
-  <div class="col"> 
-    <div class="card">
-      <div class="card-body"> 
-        <button type="button" class="btn btn-secondary" data-bs-target="#modal" data-bs-toggle="modal">Crear estudiante </button>
-      </div>
-    </div>
-  </div>
-  `;
   for (const estudiante of estudiantes) {
     contenedor_estudiantes.innerHTML += `
   <div class="col"> 
     <div class="card">
-      <div class="card-body"> 
+      <div class="card-body d-flex justify-content-center align-items-center"> 
+        ${estudiante.nombre} ${estudiante.apellido}
         <a href="/${estudiante.id}" class="stretched-link"></a>
-        <h5 class="card-title">${estudiante.nombre} ${estudiante.apellido}</h5>
       </div>
     </div>
   </div>
