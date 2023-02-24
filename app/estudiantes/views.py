@@ -19,7 +19,7 @@ def estudiante(request, id):
     estudiante = Estudiante.objects.get(id=id)
     return render(request, 'estudiantes/estudiante.html', {
         'estudiante': estudiante,
-        'formulario': MatriculaFormulario()
+        'formulario': MatriculaFormulario(estudiante=estudiante)
     })
 
 

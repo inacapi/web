@@ -19,6 +19,7 @@ async function guardar() {
   if (respuesta.ok) {
     bootstrap.Modal.getInstance(document.getElementById("modal")).hide();
     id.value = "";
+    document.querySelector(`#id_periodo option[value="${periodo.value}"]`).remove();
     periodo.value = "";
     cargar_matricula();
   }
