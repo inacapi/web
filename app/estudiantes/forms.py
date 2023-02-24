@@ -1,6 +1,7 @@
-from .models import Estudiante, Matricula, Periodo
-from django.forms import ModelForm
 from django import forms
+from django.forms import ModelForm
+
+from estudiantes.models import Estudiante, Matricula, Periodo
 
 
 class DocenteFormulario(ModelForm):

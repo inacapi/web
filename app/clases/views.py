@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
+from clases.forms import (ClaseFormulario, EvaluacionFormulario,
+                          InscripcionFormulario, SeccionFormulario)
 from clases.models import Clase
-from clases.forms import ClaseFormulario, EvaluacionFormulario, SeccionFormulario, InscripcionFormulario
 
 
 def clases(request):

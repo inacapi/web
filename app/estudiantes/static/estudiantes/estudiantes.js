@@ -1,50 +1,68 @@
 const hostname = window.location.origin
 
-async function guardar() {
-  const nombre = document.getElementById("id_nombre")
-  const apellido = document.getElementById("id_apellido")
-  await fetch(`${hostname}/api/estudiantes/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
-    },
-    body: JSON.stringify({
-      nombre: nombre.value,
-      apellido: apellido.value,
-    }),
-  })
-  bootstrap.Modal.getInstance(document.getElementById("modal")).hide();
-  nombre.value = "";
-  apellido.value = "";
-  cargar_estudiantes();
+const obtener_estudiantes = async () => {
+    const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (respuesta.ok) {
+        const estudiantes = document.getElementById('estudiantes')
+        const datos = await respuesta.json()
+
+        // Limpiar el div de estudiantes
+        estudiantes.innerHTML = ''
+
+        // Agregar una carta para cada estudiante
+        datos.map(estudiante => {
+            estudiantes.innerHTML += estudiante_a_carta(estudiante)
+        })
+    }
+
 }
 
-async function cargar_estudiantes() {
-  const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+// Obtener los estudiantes al cargar la página
+obtener_estudiantes()
 
-  const contenedor_estudiantes = document.getElementById("estudiantes");
+// Agregar un estudiante con una petición POST
+document.getElementById('guardar').addEventListener('click', async () => {
+    const nombre = document.getElementById('id_nombre')
+    const apellido = document.getElementById('id_apellido')
 
-  const estudiantes = await respuesta.json();
-  contenedor_estudiantes.innerHTML = "";
-  for (const estudiante of estudiantes) {
-    contenedor_estudiantes.innerHTML += `
-  <div class="col"> 
-    <div class="card">
-      <div class="card-body d-flex justify-content-center align-items-center"> 
-        ${estudiante.nombre} ${estudiante.apellido}
-        <a href="/${estudiante.id}" class="stretched-link"></a>
-      </div>
-    </div>
-  </div>
-  `;
-  }
+    const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            nombre: nombre.value,
+            apellido: apellido.value
+        })
+    })
+
+    if (respuesta.ok) {
+        // Limpiar los campos del formulario
+        nombre.value = ''
+        apellido.value = ''
+
+        // Volver a cargar los estudiantes
+        obtener_estudiantes()
+
+        // Cerrar el modal
+        bootstrap.Modal.getInstance(document.getElementById('modal')).hide()
+    }
+})
+
+function estudiante_a_carta(estudiante) {
+    return `
+        <div class="col">
+            <div class="card">
+                <div class="card-body text-center d-flex justify-content-center align-items-center"> 
+                    ${estudiante.nombre} ${estudiante.apellido}
+                    <a href="/${estudiante.id}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    `
 }
-cargar_estudiantes();
-
-document.getElementById("guardar").addEventListener("click", guardar);

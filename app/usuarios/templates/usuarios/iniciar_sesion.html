@@ -5,18 +5,17 @@
 {% block contenido %}
 
 <div class="container my-3">
-  {% if mensaje_error %}
-  <p class="alert alert-danger">{{ mensaje_error }}</p>
-  {% endif %}
+    {% if mensaje_error %}
+    <p class="alert alert-danger">{{ mensaje_error }}</p>
+    {% endif %}
 
-  <h1>Iniciar sesión 🧑🏻‍💻</h1>
+    <h1>Iniciar sesión</h1>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ formulario }}
-    <input type="submit" class="btn btn-secondary form-control mt-4" value="Iniciar sesión">
-  </form>
-
+    <form method="post">
+        {% csrf_token %}
+        {{ formulario }}
+        <input type="submit" class="btn btn-secondary form-control mt-4" value="Iniciar sesión">
+    </form>
 </div>
 
 {% endblock contenido %}

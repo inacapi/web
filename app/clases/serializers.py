@@ -1,7 +1,8 @@
+from django.db.models import Sum
 from rest_framework import serializers
+
 from clases.models import Clase, Evaluacion, Seccion
 from estudiantes.models import Inscripcion
-from django.db.models import Sum
 
 
 class ClaseSerializer(serializers.ModelSerializer):

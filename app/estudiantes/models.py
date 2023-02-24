@@ -1,5 +1,6 @@
 from django.db import models
-from clases.models import Periodo, Seccion, Evaluacion
+
+from clases.models import Evaluacion, Periodo, Seccion
 
 
 class Estudiante(models.Model):
@@ -23,7 +24,7 @@ class Matricula(models.Model):
         unique_together = ['periodo', 'estudiante']
 
     def __str__(self):
-        return f'{self.estudiante.nombre} {self.estudiante.apellido}'
+        return f'{self.estudiante}'
 
 
 class Inscripcion(models.Model):
