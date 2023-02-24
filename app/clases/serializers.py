@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from clases.models import Clase, Evaluacion, Seccion
 from estudiantes.models import Inscripcion
+from django.db.models import Sum
 
 
 class ClaseSerializer(serializers.ModelSerializer):
@@ -13,6 +14,14 @@ class EvaluacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evaluacion
         fields = '__all__'
+
+    def validate(self, attrs):
+        total = Evaluacion.objects.filter(clase=attrs['clase']).aggregate(
+            Sum('porcentaje'))['porcentaje__sum']
+        if total and total >= 1:
+            raise serializers.ValidationError(
+                'El porcentaje total de las evaluaciones no puede ser mayor a 100%')
+        return attrs
 
 
 class SeccionSerializer(serializers.ModelSerializer):
