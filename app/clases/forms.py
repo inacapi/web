@@ -44,6 +44,7 @@ class InscripcionFormulario(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         periodo = kwargs.pop('periodo')
+        clase = kwargs.pop('clase')
         super(InscripcionFormulario, self).__init__(*args, **kwargs)
         self.fields['matricula'].queryset = Matricula.objects.filter(
-            periodo=periodo)
+            periodo=periodo).exclude(inscripciones__seccion__clase=clase)

@@ -46,6 +46,9 @@ document.getElementById('guardar_inscripcion').addEventListener('click', async (
     })
 
     if (respuesta.ok) {
+        // Eliminar la opción si ya se usa
+        document.querySelector(`#id_matricula option[value="${matricula.value}"]`).remove()
+
         matricula.value = ''
 
         obtener_inscripciones()
