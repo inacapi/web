@@ -45,6 +45,9 @@ document.getElementById('guardar').addEventListener('click', async () => {
     })
 
     if (respuesta.ok) {
+        // Eliminar la matrícula del select
+        document.querySelector(`#id_periodo option[value="${periodo.value}"]`).remove()
+
         // Limpiar los campos del formulario
         id.value = ''
         periodo.value = ''
@@ -52,8 +55,7 @@ document.getElementById('guardar').addEventListener('click', async () => {
         // Volver a cargar las matriculas
         obtener_matriculas()
 
-        // Cerrar el modal y actualizar opciones
-        document.querySelector(`#id_periodo option[value="${periodo.value}"]`).remove()
+        // Cerrar el modal
         bootstrap.Modal.getInstance(document.getElementById('modal')).hide()
     }
 })
