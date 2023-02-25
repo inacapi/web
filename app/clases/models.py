@@ -28,6 +28,9 @@ class Docente(models.Model):
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
 
+    class Meta:
+        ordering = ['nombre', 'apellido']
+
 
 class Seccion(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True, unique=True)

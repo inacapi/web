@@ -21,10 +21,7 @@ def estudiante(request, id):
 
 def matricula(request, id_estudiante, id_matricula):
     estudiante = Estudiante.objects.get(id=id_estudiante)
-    inscripciones = estudiante.matriculas.get(
-        id=id_matricula).inscripciones.all()
-
-    return render(request, 'estudiantes/secciones.html', {
-        'estudiante': estudiante,
-        'inscripciones': inscripciones,
+    matricula = estudiante.matriculas.get(id=id_matricula)
+    return render(request, 'estudiantes/matricula.html', {
+        'matricula': matricula
     })

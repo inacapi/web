@@ -45,13 +45,11 @@ class InscripcionSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
 
-        # Quitar el perido y la sección
-        del rep['periodo']
-        del rep['seccion']
-
         # Agregar estas propiedades adicionales en la respuesta
+        rep['clase'] = f'{instance.seccion.clase.nombre}'
+        rep['docente'] = f'{instance.seccion.docente}'
         rep['nombre'] = f'{instance.matricula.estudiante.nombre}'
         rep['apellido'] = f'{instance.matricula.estudiante.apellido}'
-        rep['notas'] = instance.notas.values('nota', 'evaluacion__numero')
+        rep['notas'] = instance.notas.values('nota', 'evaluacion__numero', 'evaluacion__porcentaje')
 
         return rep

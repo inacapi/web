@@ -39,7 +39,7 @@ class Inscripcion(models.Model):
 
     class Meta:
         ordering = ['matricula__estudiante__nombre',
-                    '-matricula__estudiante__apellido']
+                    '-matricula__estudiante__apellido', 'seccion__clase__nombre']
         unique_together = ['matricula', 'seccion', 'periodo']
 
 
