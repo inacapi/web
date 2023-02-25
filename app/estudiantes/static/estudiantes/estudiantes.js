@@ -60,7 +60,7 @@ function estudiante_a_carta(estudiante) {
             <div class="card">
                 <div class="card-body text-center d-flex justify-content-center align-items-center"> 
                     ${estudiante.nombre} ${estudiante.apellido}
-                    <a href="/${estudiante.id}" class="stretched-link"></a>
+                    <a href="/${estudiante.id}/" class="stretched-link"></a>
                 </div>
             </div>
         </div>

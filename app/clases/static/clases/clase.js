@@ -70,7 +70,7 @@ const seccion_a_carta = (seccion) => {
             <div class="card h-100">
                 <div class="card-body text-center d-flex justify-content-center align-items-center">
                     ${seccion.nombre_periodo} - ${seccion.nombre_docente}
-                    <a href="/clases/${seccion.clase}/${seccion.periodo}/${seccion.id}/" class="stretched-link"></a>
+                    <a href="/clases/${seccion.clase}/${seccion.id}/" class="stretched-link"></a>
                 </div>
             </div>
         </div>

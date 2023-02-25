@@ -64,7 +64,7 @@ function matricula_a_carta(matricula) {
             <div class="card">
                 <div class="card-body d-flex align-content-center justify-content-center"> 
                     ${matricula.nombre_periodo}
-                    <a href="/${matricula.id}" class="stretched-link"></a>
+                    <a href="/${matricula.estudiante}/${matricula.id}/" class="stretched-link"></a>
                 </div>
             </div>
         </div>

@@ -20,10 +20,10 @@ def clase(request, id_clase):
     })
 
 
-def seccion(request, id_clase, id_periodo, id_seccion):
+def seccion(request, id_clase, id_seccion):
     clase = Clase.objects.get(id=id_clase)
     seccion = clase.secciones.get(id=id_seccion)
     return render(request, 'clases/seccion.html', {
         'seccion': seccion,
-        'formulario_inscripcion': InscripcionFormulario(periodo=id_periodo, clase=id_clase)
+        'formulario_inscripcion': InscripcionFormulario(periodo=seccion.periodo, clase=id_clase)
     })

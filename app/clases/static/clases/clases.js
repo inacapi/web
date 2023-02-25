@@ -7,7 +7,7 @@ const clase_a_carta = (clase) => {
             <div class="card h-100">
                 <div class="card-body text-center d-flex align-items-center justify-content-center">
                     ${clase.nombre}
-                    <a href="/clases/${clase.id}" class="stretched-link"></a>
+                    <a href="/clases/${clase.id}/" class="stretched-link"></a>
                 </div>
             </div>
         </div>

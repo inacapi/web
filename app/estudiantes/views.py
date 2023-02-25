@@ -19,7 +19,7 @@ def estudiante(request, id):
     })
 
 
-def secciones(request, id_estudiante, id_periodo, id_matricula):
+def matricula(request, id_estudiante, id_matricula):
     estudiante = Estudiante.objects.get(id=id_estudiante)
     inscripciones = estudiante.matriculas.get(
         id=id_matricula).inscripciones.all()
