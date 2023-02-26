@@ -1,9 +1,10 @@
 const hostname = window.location.origin
 
-const obtener_matriculas = async () => {
-    const id_estudiante = document.getElementById('id_estudiante').value
+// Variables globales
+const estudiante = document.getElementById('id_estudiante').value
 
-    const respuesta = await fetch(`${hostname}/api/estudiantes/${id_estudiante}/matriculas/`, {
+const obtener_matriculas = async () => {
+    const respuesta = await fetch(`${hostname}/api/matriculas?estudiante=${estudiante}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -27,11 +28,10 @@ obtener_matriculas()
 
 // Añade una matricula con una petición POST
 document.getElementById('guardar').addEventListener('click', async () => {
-    const id_estudiante = document.getElementById('id_estudiante').value
     const id = document.getElementById('id_id')
     const periodo = document.getElementById('id_periodo')
 
-    const respuesta = await fetch(`${hostname}/api/estudiantes/${id_estudiante}/matriculas/`, {
+    const respuesta = await fetch(`${hostname}/api/matriculas`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ document.getElementById('guardar').addEventListener('click', async () => {
         body: JSON.stringify({
             id: id.value,
             periodo: periodo.value,
-            estudiante: id_estudiante,
+            estudiante: estudiante,
         }),
     })
 

@@ -7,7 +7,7 @@ const matricula = document.getElementById('id_matricula').value
 
 // Leer inscripciones
 const obtener_inscripciones = async () => {
-    const respuesta = await fetch(`${hostname}/api/estudiantes/${estudiante}/${matricula}/inscripciones/`, {
+    const respuesta = await fetch(`${hostname}/api/inscripciones?matricula=${matricula}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -87,7 +87,7 @@ function inscripcion_a_carta(inscripcion) {
 document.getElementById('guardar_inscripcion').addEventListener('click', async () => {
     const seccion = document.querySelector('#id_seccion')
 
-    const respuesta = await fetch(`${hostname}/api/clases/inscripciones/`, {
+    const respuesta = await fetch(`${hostname}/api/inscripciones`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 const hostname = window.location.origin
 
 const obtener_estudiantes = async () => {
-    const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
+    const respuesta = await fetch(`${hostname}/api/estudiantes`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -29,7 +29,7 @@ document.getElementById('guardar').addEventListener('click', async () => {
     const nombre = document.getElementById('id_nombre')
     const apellido = document.getElementById('id_apellido')
 
-    const respuesta = await fetch(`${hostname}/api/estudiantes/`, {
+    const respuesta = await fetch(`${hostname}/api/estudiantes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

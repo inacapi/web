@@ -6,8 +6,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from clases.models import Clase, Evaluacion, Seccion
-from estudiantes.models import Inscripcion, Nota
+from estudiantes.models import Inscripcion, Nota, Estudiante
 from clases.serializers import ClaseSerializer, EvaluacionSerializer, SeccionSerializer, InscripcionSerializer
+from estudiantes.serializers import EstudianteSerializer, MatriculaSerializer
 
 
 USERNAME = os.environ.get('USERNAME')
@@ -62,9 +63,14 @@ def secciones(request):
 def inscripciones(request):
     if request.method == 'GET':
         seccion = request.GET.get('seccion')
+        matricula = request.GET.get('matricula')
 
-        serializer = InscripcionSerializer(
-            Inscripcion.objects.filter(seccion=seccion), many=True)
+        if seccion:
+            inscripciones = Inscripcion.objects.filter(seccion=seccion)
+        elif matricula:
+            inscripciones = Inscripcion.objects.filter(matricula=matricula)
+
+        serializer = InscripcionSerializer(inscripciones, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -130,3 +136,32 @@ def actualizar_notas(request):
         return Response(data={'mensaje_error': 'Token renovado, intentar nuevamente.'}, status=400)
 
     return Response(status=200)
+
+
+@api_view(['GET', 'POST'])
+def estudiantes(request):
+    if request.method == 'GET':
+        estudiantes = Estudiante.objects.all()
+        serializer = EstudianteSerializer(estudiantes, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = EstudianteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+@api_view(['GET', 'POST'])
+def matriculas(request):
+    if request.method == 'GET':
+        estudiante = request.GET.get('estudiante')
+        matriculas = Estudiante.objects.get(id=estudiante).matriculas.all()
+        serializer = MatriculaSerializer(matriculas, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = MatriculaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
