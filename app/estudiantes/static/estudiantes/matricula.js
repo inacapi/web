@@ -114,3 +114,20 @@ document.getElementById('guardar_inscripcion').addEventListener('click', async (
         bootstrap.Modal.getInstance(document.getElementById('modal_inscripcion')).hide()
     }
 })
+
+// Botón para actualizar las notas
+document.querySelector('#actualizar_notas').addEventListener('click', async () => {
+    const respuesta = await fetch(`${hostname}/api/actualizar_notas`, {
+        method: 'POST',
+        body: JSON.stringify({
+            matricula: matricula
+        })
+    })
+
+    if (!respuesta.ok) {
+        alert((await respuesta.json())['mensaje_error'])
+        return
+    }
+
+    obtener_inscripciones()
+})

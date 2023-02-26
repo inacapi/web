@@ -59,7 +59,7 @@ def secciones(request):
         return Response(serializer.errors, status=400)
 
 
-@ api_view(['GET', 'POST'])
+@api_view(['GET', 'POST'])
 def inscripciones(request):
     if request.method == 'GET':
         seccion = request.GET.get('seccion')
@@ -81,11 +81,16 @@ def inscripciones(request):
         return Response(serializer.errors, status=400)
 
 
-@ api_view(['POST'])
+@api_view(['POST'])
 def actualizar_notas(request):
     body = json.loads(request.body.decode('utf-8'))
     seccion = body.get('seccion')
-    inscripciones = Inscripcion.objects.filter(seccion=seccion)
+    matricula = body.get('matricula')
+
+    if seccion:
+        inscripciones = Inscripcion.objects.filter(seccion=seccion)
+    elif matricula:
+        inscripciones = Inscripcion.objects.filter(matricula=matricula)
 
     token = request.session.get('token_inacap', 'obtener_token')
     actualizar_token = False
@@ -107,8 +112,7 @@ def actualizar_notas(request):
 
         evaluaciones = response.json()['data']['notas']
         if len(evaluaciones) == 0:
-            print('No hay evaluaciones aún')
-            return Response(data={'mensaje_error': 'No hay evaluaciones aún.'}, status=400)
+            continue  # Hay un error con la matrícula o sección
 
         for evaluacion in evaluaciones:
             porcentaje = evaluacion['caliNponderacion']
@@ -116,8 +120,11 @@ def actualizar_notas(request):
             numero = evaluacion['caliNevaluacion']
             porcentaje = float(porcentaje[:porcentaje.find('%')]) / 100
 
-            evaluacion_bd = Evaluacion.objects.get(
-                clase=clase, numero=numero, porcentaje=porcentaje)
+            try:
+                evaluacion_bd = Evaluacion.objects.get(
+                    clase=clase, numero=numero, porcentaje=porcentaje)
+            except Evaluacion.DoesNotExist:
+                continue  # Faltan las evaluaciones de esa clase
 
             try:
                 nota = float(evaluacion['calaNnota']) * 10
