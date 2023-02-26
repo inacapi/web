@@ -63,11 +63,14 @@ def secciones(request, id_clase):
 
 
 @api_view(['GET', 'POST'])
-def inscripciones(request, id_clase, id_seccion):
+def inscripciones(request):
     if request.method == 'GET':
+        seccion = request.GET.get('seccion')
+
         serializer = InscripcionSerializer(
-            Clase.objects.get(id=id_clase).secciones.get(id=id_seccion).inscripciones.all(), many=True)
+            Inscripcion.objects.filter(seccion=seccion), many=True)
         return Response(serializer.data)
+
     elif request.method == 'POST':
         serializer = InscripcionSerializer(data=request.data)
         if serializer.is_valid():

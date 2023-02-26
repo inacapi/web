@@ -11,7 +11,7 @@ const evaluaciones = document.querySelectorAll('thead > tr')[1].childElementCoun
 
 // Leer inscripciones
 const obtener_inscripciones = async () => {
-    const respuesta = await fetch(`${hostname}/api/clases/${clase}/${seccion}/inscripciones/`, {
+    const respuesta = await fetch(`${hostname}/api/clases/inscripciones/?seccion=${seccion}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -33,7 +33,7 @@ obtener_inscripciones()
 document.getElementById('guardar_inscripcion').addEventListener('click', async () => {
     const matricula = document.querySelector('#id_matricula')
 
-    const respuesta = await fetch(`${hostname}/api/clases/${clase}/${seccion}/inscripciones/`, {
+    const respuesta = await fetch(`${hostname}/api/clases/inscripciones/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
