@@ -82,3 +82,35 @@ function inscripcion_a_carta(inscripcion) {
     // Retornar la carta final
     return col.outerHTML
 }
+
+// Añadir una inscripción
+document.getElementById('guardar_inscripcion').addEventListener('click', async () => {
+    const seccion = document.querySelector('#id_seccion')
+
+    const respuesta = await fetch(`${hostname}/api/clases/inscripciones/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            periodo: periodo,
+            seccion: seccion.value,
+            matricula: matricula
+        })
+    })
+
+    if (respuesta.ok) {
+        // Eliminar todas las secciones de la misma clase
+        const nombre_seccion_y_profesor = document.querySelector(`#id_seccion option[value="${seccion.value}"]`).innerText
+        const nombre_seccion = nombre_seccion_y_profesor.slice(0, nombre_seccion_y_profesor.indexOf(' - '))
+        document.querySelectorAll(`#id_seccion option`).forEach(opcion => {
+            if (opcion.innerText.startsWith(nombre_seccion)) opcion.remove()
+        })
+
+        seccion.value = ''
+
+        obtener_inscripciones()
+
+        bootstrap.Modal.getInstance(document.getElementById('modal_inscripcion')).hide()
+    }
+})

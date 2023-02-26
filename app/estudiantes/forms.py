@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 
-from estudiantes.models import Estudiante, Matricula, Periodo
+from estudiantes.models import Estudiante, Matricula, Periodo, Inscripcion
+from clases.models import Seccion
 
 
 class DocenteFormulario(ModelForm):
@@ -38,3 +39,18 @@ class MatriculaFormulario(ModelForm):
         super(MatriculaFormulario, self).__init__(*args, **kwargs)
         self.fields['periodo'].queryset = Periodo.objects.exclude(
             id__in=estudiante.matriculas.values_list('periodo_id', flat=True))
+
+
+class InscripcionFormulario(forms.ModelForm):
+    class Meta:
+        model = Inscripcion
+        fields = ['seccion']
+        widgets = {
+            'seccion': forms.Select(attrs={'class': 'form-select'})
+        }
+
+    def __init__(self, *args, **kwargs):
+        matricula = kwargs.pop('matricula')
+        super(InscripcionFormulario, self).__init__(*args, **kwargs)
+        self.fields['seccion'].queryset = Seccion.objects.filter(periodo=matricula.periodo).exclude(
+            clase__in=matricula.inscripciones.values_list('seccion__clase', flat=True))

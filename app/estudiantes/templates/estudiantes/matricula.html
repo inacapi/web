@@ -14,9 +14,35 @@
     <h1>{{ matricula.estudiante }}</h1>
 
     <h2>Inscripciones</h2>
+
+    <button type="button" class="btn btn-primary mb-3 me-2" data-bs-toggle="modal" data-bs-target="#modal_inscripcion">
+        Añadir inscripción
+    </button>
     <button type="button" class="btn btn-primary mb-3" id="actualizar_notas">Actualizar notas</button>
 
     <div class="row g-2 row-cols-1 row-cols-sm-2 row-cols-lg-3 mb-3" id="inscripciones"></div>
+</div>
+
+<!-- Modal para añadir inscripciones -->
+<div class="modal fade" id="modal_inscripcion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Añadir inscripción</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {{ formulario_inscripcion }}
+                    {% csrf_token %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="guardar_inscripcion">Guardar inscripción</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="{% static 'estudiantes/matricula.js' %}"></script>

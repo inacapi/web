@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from estudiantes.forms import EstudianteFormulario, MatriculaFormulario
+from estudiantes.forms import EstudianteFormulario, MatriculaFormulario, InscripcionFormulario
 from estudiantes.models import Estudiante
 
 
@@ -23,5 +23,6 @@ def matricula(request, id_estudiante, id_matricula):
     estudiante = Estudiante.objects.get(id=id_estudiante)
     matricula = estudiante.matriculas.get(id=id_matricula)
     return render(request, 'estudiantes/matricula.html', {
-        'matricula': matricula
+        'matricula': matricula,
+        'formulario_inscripcion': InscripcionFormulario(matricula=matricula)
     })
