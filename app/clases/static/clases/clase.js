@@ -1,5 +1,8 @@
 const hostname = window.location.origin
 
+// Variables globales
+const clase = document.getElementById('id_clase').value
+
 // Convierte una evaluación al html correspondiente
 const evaluacion_a_fila = (evaluacion) => {
     return `
@@ -12,8 +15,7 @@ const evaluacion_a_fila = (evaluacion) => {
 
 // Obtiene las evaluaciones de la clase
 const obtener_evaluaciones = async () => {
-    const clase = document.getElementById('id_clase').value
-    const respuesta = await fetch(`${hostname}/api/clases/${clase}/evaluaciones/`, {
+    const respuesta = await fetch(`${hostname}/api/evaluaciones?clase=${clase}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -34,11 +36,10 @@ const obtener_evaluaciones = async () => {
 obtener_evaluaciones()
 
 document.getElementById('guardar_evaluacion').addEventListener('click', async () => {
-    const clase = document.getElementById('id_clase')
     const numero = document.getElementById('id_numero')
     const porcentaje = document.getElementById('id_porcentaje')
 
-    const respuesta = await fetch(`${hostname}/api/clases/${clase.value}/evaluaciones/`, {
+    const respuesta = await fetch(`${hostname}/api/evaluaciones`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ document.getElementById('guardar_evaluacion').addEventListener('click', async ()
         body: JSON.stringify({
             numero: numero.value,
             porcentaje: porcentaje.value,
-            clase: clase.value
+            clase: clase
         })
     })
 
@@ -78,8 +79,7 @@ const seccion_a_carta = (seccion) => {
 }
 
 const obtener_secciones = async () => {
-    const clase = document.getElementById('id_clase').value
-    const respuesta = await fetch(`${hostname}/api/clases/${clase}/secciones/`, {
+    const respuesta = await fetch(`${hostname}/api/secciones?clase=${clase}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -100,14 +100,11 @@ const obtener_secciones = async () => {
 obtener_secciones()
 
 document.getElementById('guardar_seccion').addEventListener('click', async () => {
-    const clase = document.getElementById('id_clase').value
     const id = document.getElementById('id_id')
     const periodo = document.getElementById('id_periodo')
     const docente = document.getElementById('id_docente')
 
-    console.log(clase, id.value, periodo.value, docente.value)
-
-    const respuesta = await fetch(`${hostname}/api/clases/${clase}/secciones/`, {
+    const respuesta = await fetch(`${hostname}/api/secciones`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
