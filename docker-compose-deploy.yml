@@ -20,7 +20,7 @@ services:
       - .env
 
   api:
-    image: ghcr.io/inacapi/api:1.0
+    image: ghcr.io/inacapi/api:2.0
     restart: always
 
   proxy:
