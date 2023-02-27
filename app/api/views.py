@@ -89,34 +89,44 @@ def actualizar_notas(request):
 
     if seccion:
         inscripciones = Inscripcion.objects.filter(seccion=seccion)
+        matricula = [inscripcion.matricula.id for inscripcion in inscripciones]
+
     elif matricula:
         inscripciones = Inscripcion.objects.filter(matricula=matricula)
+        seccion = [inscripcion.seccion.id for inscripcion in inscripciones]
+
+    if len(inscripciones) == 0:
+        return Response(data={'mensaje_error': 'No hay inscripciones con esa matrícula o sección.'}, status=400)
+
+    periodo = inscripciones[0].periodo.id
 
     token = request.session.get('token_inacap', 'obtener_token')
     actualizar_token = False
 
-    for inscripcion in inscripciones:
-        headers = {'Authorization': token}
-        data = {
-            'periodo': inscripcion.periodo.id,
-            'seccion': inscripcion.seccion.id,
-            'matricula': inscripcion.matricula.id
-        }
+    headers = {'Authorization': token}
+    body = {
+        'periodo': periodo,
+        'matricula': matricula,
+        'seccion': seccion,
+    }
 
-        response = requests.post(
-            'http://api:3000/seccion', headers=headers, json=data)
+    datos = requests.post(
+        'http://api:3000/seccion', headers=headers, json=body)
 
-        if response.status_code == 401:
+    paquetes = list(zip(inscripciones, datos.json()))
+
+    for paquete in paquetes:
+        if 'status' in paquete[1] and paquete[1]['status'] == 401:
             actualizar_token = True
             break
 
-        evaluaciones = response.json()['data']['notas']
+        evaluaciones = paquete[1]['notas']
         if len(evaluaciones) == 0:
             continue  # Hay un error con la matrícula o sección
 
         for evaluacion in evaluaciones:
             porcentaje = evaluacion['caliNponderacion']
-            clase = inscripcion.seccion.clase.id
+            clase = paquete[0].seccion.clase.id
             numero = evaluacion['caliNevaluacion']
             porcentaje = float(porcentaje[:porcentaje.find('%')]) / 100
 
@@ -124,7 +134,7 @@ def actualizar_notas(request):
                 evaluacion_bd = Evaluacion.objects.get(
                     clase=clase, numero=numero, porcentaje=porcentaje)
             except Evaluacion.DoesNotExist:
-                continue  # Faltan las evaluaciones de esa clase
+                break  # Faltan las evaluaciones de esa clase
 
             try:
                 nota = float(evaluacion['calaNnota']) * 10
@@ -132,7 +142,7 @@ def actualizar_notas(request):
                 continue  # Esa evaluación no tiene nota todavía
 
             Nota.objects.update_or_create(
-                inscripcion=inscripcion, evaluacion=evaluacion_bd, nota=nota)
+                inscripcion=paquete[0], evaluacion=evaluacion_bd, nota=nota)
 
     if actualizar_token:
         response = requests.post('http://api:3000/obtener_token', json={
