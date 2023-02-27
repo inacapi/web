@@ -20,6 +20,23 @@ dominio. Esta lista ayuda a seguir cada paso hasta terminar.
 ```
 docker compose --file docker-compose-deploy.yml run --rm certbot /opt/certify-init.sh
 ```
+- Conectarse al contenedor de django
+```
+docker exec -it web-app-1 sh
+```
+- Aplicar las migraciones
+```
+python manage.py migrate
+```
+- Copiar los archivos estáticos
+```
+python manage.py collectstatic
+```
+- Crear un usuario admin
+```
+python manage.py createsuperuser
+```
+- Crear más usuarios desde el panel admin
 - Reinicar los servicios para que nginx use https en adelante
 - Renovar el certificado cada 3 meses
 ```
