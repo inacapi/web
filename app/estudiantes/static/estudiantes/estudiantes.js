@@ -57,7 +57,7 @@ document.getElementById('guardar').addEventListener('click', async () => {
 function estudiante_a_carta(estudiante) {
     return `
         <div class="col">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body text-center d-flex justify-content-center align-items-center"> 
                     ${estudiante.nombre} ${estudiante.apellido}
                     <a href="/${estudiante.id}/" class="stretched-link"></a>
