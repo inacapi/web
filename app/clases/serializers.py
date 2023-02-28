@@ -19,9 +19,12 @@ class EvaluacionSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         total = Evaluacion.objects.filter(clase=attrs['clase']).aggregate(
             Sum('porcentaje'))['porcentaje__sum']
-        if total and total >= 1:
-            raise serializers.ValidationError(
-                'El porcentaje total de las evaluaciones no puede ser mayor a 100%')
+
+        if total:
+            total += attrs['porcentaje']
+            if total > 1:
+                raise serializers.ValidationError(
+                    'El porcentaje total de las evaluaciones no puede ser mayor a 100%')
         return attrs
 
 
@@ -50,6 +53,7 @@ class InscripcionSerializer(serializers.ModelSerializer):
         rep['docente'] = f'{instance.seccion.docente}'
         rep['nombre'] = f'{instance.matricula.estudiante.nombre}'
         rep['apellido'] = f'{instance.matricula.estudiante.apellido}'
-        rep['notas'] = instance.notas.values('nota', 'evaluacion__numero', 'evaluacion__porcentaje')
+        rep['notas'] = instance.notas.values(
+            'nota', 'evaluacion__numero', 'evaluacion__porcentaje')
 
         return rep
