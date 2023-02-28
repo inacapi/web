@@ -22,6 +22,7 @@ class Matricula(models.Model):
 
     class Meta:
         unique_together = ['periodo', 'estudiante']
+        ordering = ['periodo', 'estudiante__nombre', 'estudiante__apellido']
 
     def __str__(self):
         return f'{self.estudiante}'
