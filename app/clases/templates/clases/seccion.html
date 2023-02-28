@@ -13,20 +13,24 @@
 <div class="container mt-2 mb-3">
     <h1>{{ seccion.clase.nombre }}</h1>
 
-    <table class="table table-bordered w-auto">
-        <thead>
-            <tr>
-                <th>Periodo</th>
-                <th>Docente</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ seccion.periodo }}</td>
-                <td>{{ seccion.docente }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered w-auto">
+            <thead>
+                <tr>
+                    <th>Periodo</th>
+                    <th>Docente</th>
+                    <th>Sección</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ seccion.periodo }}</td>
+                    <td>{{ seccion.docente }}</td>
+                    <td>{{ seccion.id }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h2>Inscripciones</h2>
 
@@ -35,20 +39,22 @@
     </button>
     <button type="button" class="btn btn-primary mb-3" id="actualizar_notas">Actualizar notas</button>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                {% for evaluacion in seccion.clase.evaluaciones.all %}
-                <th>
-                    {{ evaluacion.porcentaje_en_porcentaje }}
-                </th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody id="inscripciones"></tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered w-auto">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    {% for evaluacion in seccion.clase.evaluaciones.all %}
+                    <th>
+                        {{ evaluacion.porcentaje_en_porcentaje }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody id="inscripciones"></tbody>
+        </table>
+    </div>
 
 </div>
 

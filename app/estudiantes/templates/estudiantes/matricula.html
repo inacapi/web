@@ -13,6 +13,23 @@
 <div class="container mt-2 mb-3">
     <h1>{{ matricula.estudiante }}</h1>
 
+    <div class="table-responsive">
+        <table class="table table-bordered w-auto">
+            <thead>
+                <tr>
+                    <th>Periodo</th>
+                    <th>Matrícula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ matricula.periodo }}</td>
+                    <td>{{ matricula.id }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <h2>Inscripciones</h2>
 
     <button type="button" class="btn btn-primary mb-3 me-2" data-bs-toggle="modal" data-bs-target="#modal_inscripcion">
