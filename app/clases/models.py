@@ -44,7 +44,7 @@ class Seccion(models.Model):
                     'docente__nombre', 'docente__apellido']
 
     def __str__(self):
-        return f'{self.clase.nombre} - {self.docente}'
+        return f'{self.id} - {self.clase.nombre} - {self.docente}'
 
 
 class Evaluacion(models.Model):

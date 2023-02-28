@@ -101,10 +101,10 @@ document.getElementById('guardar_inscripcion').addEventListener('click', async (
 
     if (respuesta.ok) {
         // Eliminar todas las secciones de la misma clase
-        const nombre_seccion_y_profesor = document.querySelector(`#id_seccion option[value="${seccion.value}"]`).innerText
-        const nombre_seccion = nombre_seccion_y_profesor.slice(0, nombre_seccion_y_profesor.indexOf(' - '))
+        const nombre_completo = document.querySelector(`#id_seccion option[value="${seccion.value}"]`).innerText
+        const nombre_seccion = nombre_completo.split(' - ')[1]
         document.querySelectorAll(`#id_seccion option`).forEach(opcion => {
-            if (opcion.innerText.startsWith(nombre_seccion)) opcion.remove()
+            if (opcion.innerText.includes(nombre_seccion)) opcion.remove()
         })
 
         seccion.value = ''
