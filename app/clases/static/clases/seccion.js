@@ -7,7 +7,7 @@ const seccion = document.querySelector('#id_seccion').value
 
 // Obtiene las evaluaciones de la clase
 const obtener_evaluaciones = async () => {
-    const respuesta = await fetch(`${hostname}/api/evaluaciones?clase=${clase}`, {
+    const respuesta = await fetch(`${hostname}/api/evaluaciones?seccion=${seccion}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -25,7 +25,7 @@ const obtener_evaluaciones = async () => {
         })
     }
 }
-// obtener_evaluaciones()
+obtener_evaluaciones()
 
 document.getElementById('guardar_evaluacion').addEventListener('click', async () => {
     const numero = document.getElementById('id_numero')
@@ -40,7 +40,7 @@ document.getElementById('guardar_evaluacion').addEventListener('click', async ()
         body: JSON.stringify({
             numero: numero.value,
             porcentaje: porcentaje.value,
-            clase: clase
+            seccion: seccion
         })
     })
 

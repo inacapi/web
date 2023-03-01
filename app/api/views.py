@@ -31,9 +31,9 @@ def clases(request):
 @api_view(['GET', 'POST'])
 def evaluaciones(request):
     if request.method == 'GET':
-        clase = request.GET.get('clase')
+        seccion = request.GET.get('seccion')
         serializer = EvaluacionSerializer(
-            Evaluacion.objects.filter(clase=clase), many=True)
+            Evaluacion.objects.filter(seccion=seccion), many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':

@@ -17,7 +17,7 @@ class EvaluacionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, attrs):
-        total = Evaluacion.objects.filter(clase=attrs['clase']).aggregate(
+        total = Evaluacion.objects.filter(seccion=attrs['seccion']).aggregate(
             Sum('porcentaje'))['porcentaje__sum']
 
         if total:
