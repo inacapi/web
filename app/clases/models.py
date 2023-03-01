@@ -48,19 +48,21 @@ class Seccion(models.Model):
 
 
 class Evaluacion(models.Model):
-    clase = models.ForeignKey(
-        Clase, on_delete=models.RESTRICT, related_name='evaluaciones')
+    seccion = models.ForeignKey(
+        Seccion, on_delete=models.RESTRICT, related_name='evaluaciones')
     porcentaje = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(1)])
     numero = models.PositiveIntegerField()
+    nota_promedio = models.PositiveIntegerField(null=True, blank=True)
+    fecha = models.CharField(max_length=10, null=True, blank=True)
 
     @property
     def porcentaje_en_porcentaje(self):
         return f'{int(self.porcentaje * 100)}%'
 
     class Meta:
-        unique_together = ['clase', 'numero']
-        ordering = ['clase__nombre', 'numero']
+        unique_together = ['seccion', 'numero']
+        ordering = ['seccion__clase__nombre', 'numero']
 
     def __str__(self):
-        return f'{self.numero} - {self.porcentaje*100}% - {self.clase}'
+        return f'{self.numero} - {self.porcentaje*100}% - {self.seccion.clase}'
