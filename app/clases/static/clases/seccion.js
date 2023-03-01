@@ -5,6 +5,58 @@ const clase = document.querySelector('#id_clase').value
 const periodo = document.querySelector('#id_periodo').value
 const seccion = document.querySelector('#id_seccion').value
 
+// Obtiene las evaluaciones de la clase
+const obtener_evaluaciones = async () => {
+    const respuesta = await fetch(`${hostname}/api/evaluaciones?clase=${clase}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (respuesta.ok) {
+        const evaluaciones = document.getElementById('evaluaciones')
+        const datos = await respuesta.json()
+
+        // Limpiar el div de evaluaciones
+        evaluaciones.innerHTML = ''
+
+        // Agregar una fila para cada evaluación
+        datos.map(evaluacion => {
+            evaluaciones.innerHTML += evaluacion_a_fila(evaluacion)
+        })
+    }
+}
+// obtener_evaluaciones()
+
+document.getElementById('guardar_evaluacion').addEventListener('click', async () => {
+    const numero = document.getElementById('id_numero')
+    const porcentaje = document.getElementById('id_porcentaje')
+
+    const respuesta = await fetch(`${hostname}/api/evaluaciones`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            numero: numero.value,
+            porcentaje: porcentaje.value,
+            clase: clase
+        })
+    })
+
+    if (respuesta.ok) {
+        // Limpiar los campos del formulario
+        numero.value = ''
+        porcentaje.value = ''
+
+        // Volver a obtener las clases
+        obtener_evaluaciones()
+
+        // Cerrar el modal
+        bootstrap.Modal.getInstance(document.getElementById('modal_evaluacion')).hide()
+    }
+})
+
 // El primer thead son los datos de la sección, el segundo son los datos de las evaluaciones,
 // hay que restar 2 porque corresponden a los nombres de cada estudiante
 const evaluaciones = document.querySelectorAll('thead > tr')[1].childElementCount - 2
@@ -89,3 +141,13 @@ document.querySelector('#actualizar_notas').addEventListener('click', async () =
 
     obtener_inscripciones()
 })
+
+// Convierte una evaluación al html correspondiente
+function evaluacion_a_fila(evaluacion) {
+    return `
+        <tr>
+            <td>${evaluacion.numero}</td>
+            <td>${parseFloat(evaluacion.porcentaje) * 100}%</td>
+        </tr>
+    `
+}
