@@ -126,13 +126,14 @@ def actualizar_notas(request):
 
         for evaluacion in evaluaciones:
             porcentaje = evaluacion['caliNponderacion']
-            clase = paquete[0].seccion.clase.id
+            # No uso seccion porque puede ser una lista cuando se envía una matrícula
+            id_seccion = paquete[0].seccion.id
             numero = evaluacion['caliNevaluacion']
             porcentaje = float(porcentaje[:porcentaje.find('%')]) / 100
 
             try:
                 evaluacion_bd = Evaluacion.objects.get(
-                    clase=clase, numero=numero, porcentaje=porcentaje)
+                    seccion=id_seccion, numero=numero, porcentaje=porcentaje)
             except Evaluacion.DoesNotExist:
                 break  # Faltan las evaluaciones de esa clase
 
