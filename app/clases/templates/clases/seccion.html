@@ -68,7 +68,7 @@
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    {% for evaluacion in seccion.clase.evaluaciones.all %}
+                    {% for evaluacion in seccion.evaluaciones.all %}
                     <th>
                         {{ evaluacion.porcentaje_en_porcentaje }}
                     </th>

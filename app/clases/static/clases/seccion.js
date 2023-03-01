@@ -59,7 +59,7 @@ document.getElementById('guardar_evaluacion').addEventListener('click', async ()
 
 // El primer thead son los datos de la sección, el segundo son los datos de las evaluaciones,
 // hay que restar 2 porque corresponden a los nombres de cada estudiante
-const evaluaciones = document.querySelectorAll('thead > tr')[1].childElementCount - 2
+const evaluaciones = document.querySelectorAll('thead > tr')[2].childElementCount - 2
 
 // Leer inscripciones
 const obtener_inscripciones = async () => {
