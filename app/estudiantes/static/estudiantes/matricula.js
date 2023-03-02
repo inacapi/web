@@ -70,13 +70,16 @@ function inscripcion_a_carta(inscripcion) {
 
     evaluaciones_container.appendChild(evaluaciones)
 
-    for (const nota of inscripcion.notas) {
+    for (let i = 0; i < inscripcion.evaluaciones.length; i++) {
+        const evaluacion = inscripcion.evaluaciones[i]
+        const nota = inscripcion.notas[i] || { nota: '' }
+
         evaluaciones.innerHTML += `
             <tr>
-                <td>${parseFloat(nota.evaluacion__porcentaje) * 100}%</td>
+                <td>${parseFloat(evaluacion.porcentaje) * 100}%</td>
                 <td>${nota.nota}</td>
-                <td>${nota.evaluacion__nota_promedio === null ? '' : nota.evaluacion__nota_promedio}</td>
-                <td class="text-nowrap">${nota.evaluacion__fecha === null ? '' : nota.evaluacion__fecha}</td>
+                <td>${evaluacion.nota_promedio === null ? '' : evaluacion.nota_promedio}</td>
+                <td class="text-nowrap">${evaluacion.fecha === null ? '' : evaluacion.fecha}</td>
             </tr>
         `
     }
