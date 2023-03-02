@@ -34,6 +34,10 @@ class Inscripcion(models.Model):
     periodo = models.ForeignKey(Periodo, on_delete=models.RESTRICT)
     seccion = models.ForeignKey(
         Seccion, on_delete=models.RESTRICT, related_name='inscripciones')
+    nota_presentacion = models.CharField(max_length=5, blank=True, null=True)
+    nota_final = models.CharField(max_length=5, blank=True, null=True)
+    asistencia = models.CharField(max_length=5, blank=True, null=True)
+    situacion = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         return f'{self.matricula.estudiante} {self.seccion.clase}'
