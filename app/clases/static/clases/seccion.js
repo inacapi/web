@@ -140,14 +140,17 @@ document.querySelector('#actualizar_notas').addEventListener('click', async () =
     }
 
     obtener_inscripciones()
+    obtener_evaluaciones()
 })
 
 // Convierte una evaluación al html correspondiente
 function evaluacion_a_fila(evaluacion) {
     return `
         <tr>
-            <td>${evaluacion.numero}</td>
+            <td class="text-nowrap">${evaluacion.fecha === null ? '' : evaluacion.fecha}</td>
+            <td>${evaluacion.nota_promedio === null ? '' : evaluacion.nota_promedio}</td>
             <td>${parseFloat(evaluacion.porcentaje) * 100}%</td>
+            <td>${evaluacion.numero}</td>
         </tr>
     `
 }
