@@ -115,6 +115,13 @@ def actualizar_notas(request):
 
     paquetes = list(zip(inscripciones, datos.json()))
 
+    # Nunca habrá más de 6 evaluaciones
+    actualizar_evaluacion = {
+        '1': True, '2': True,
+        '3': True, '4': True,
+        '5': True, '6': True
+    }
+
     for paquete in paquetes:
         if 'status' in paquete[1] and paquete[1]['status'] == 401:
             actualizar_token = True
@@ -132,10 +139,25 @@ def actualizar_notas(request):
             porcentaje = float(porcentaje[:porcentaje.find('%')]) / 100
 
             try:
+                promedio = float(evaluacion['promedioCalificacion']) * 10
+            except ValueError:
+                # Si no está el promedio, no se actualiza
+                actualizar_evaluacion[numero] = False
+
+            try:
                 evaluacion_bd = Evaluacion.objects.get(
                     seccion=id_seccion, numero=numero, porcentaje=porcentaje)
+
+                if actualizar_evaluacion[numero]:
+                    evaluacion_bd.nota_promedio = promedio
+                    evaluacion_bd.fecha = evaluacion['caliFevaluacion']
+                    evaluacion_bd.save()
+
+                    # Si se actualizó, no se actualiza de nuevo
+                    actualizar_evaluacion[numero] = False
+
             except Evaluacion.DoesNotExist:
-                break  # Faltan las evaluaciones de esa clase
+                continue  # Hay un problema con esa evaluación, probar las demás
 
             try:
                 nota = float(evaluacion['calaNnota']) * 10
