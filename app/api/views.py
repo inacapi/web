@@ -127,9 +127,18 @@ def actualizar_notas(request):
             actualizar_token = True
             break
 
+        # La asistencia siempre está presente
+        asistencia = paquete[1]['asistencia']['detalle']['porceasisplani']
+        paquete[0].asistencia = f'{round(asistencia)}%'
+
         evaluaciones = paquete[1]['notas']
         if len(evaluaciones) == 0:
             continue  # Hay un error con la matrícula o sección
+
+        # Agregar estas propiedades, fuera del bucle para no hacerlo en cada iteración
+        paquete[0].situacion = paquete[1]['notas'][0]['sitfCcod']
+        paquete[0].nota_final = paquete[1]['notas'][0]['cargNnotaFinal']
+        paquete[0].nota_presentacion = paquete[1]['notas'][0]['cargNnotaPresentacion']
 
         for evaluacion in evaluaciones:
             porcentaje = evaluacion['caliNponderacion']
@@ -166,6 +175,9 @@ def actualizar_notas(request):
 
             Nota.objects.update_or_create(
                 inscripcion=paquete[0], evaluacion=evaluacion_bd, defaults={'nota': nota})
+
+        # Guardar los cambios de la inscripción
+        paquete[0].save()
 
     if actualizar_token:
         response = requests.post('http://api:3000/obtener_token', json={
