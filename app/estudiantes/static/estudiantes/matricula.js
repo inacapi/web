@@ -38,7 +38,7 @@ function inscripcion_a_carta(inscripcion) {
     metadatos_containder.classList.add('table-responsive')
 
     const metadatos = document.createElement('table')
-    metadatos.classList.add('table', 'table-bordered', 'table-sm', 'text-center')
+    metadatos.classList.add('table', 'table-bordered', 'table-sm', 'text-center', 'align-middle')
     metadatos.innerHTML = `
         <tr>
             <th>Clase</th>
@@ -47,6 +47,26 @@ function inscripcion_a_carta(inscripcion) {
         <tr>
             <th>Docente</th>
             <td>${inscripcion.docente}</td>
+        </tr>
+        <tr>
+            <th>Asistencia</th>
+            <td>${inscripcion.asistencia !== null ? inscripcion.asistencia : ''}</td>
+        </tr>
+        <tr>
+            <th>Promedio</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Nota final</th>
+            <td>${inscripcion.nota_final !== null ? inscripcion.nota_final : ''}</td>
+        </tr>
+        <tr>
+            <th>Nota presentación</th>
+            <td>${inscripcion.nota_presentacion !== null ? inscripcion.nota_presentacion : ''}</td>
+        </tr>
+        <tr>
+            <th>Situación</th>
+            <td>${inscripcion.situacion !== null ? inscripcion.situacion : ''}</td>
         </tr>
     `
 
@@ -70,9 +90,17 @@ function inscripcion_a_carta(inscripcion) {
 
     evaluaciones_container.appendChild(evaluaciones)
 
+    // Calcular el promedio y el promedio del curso
+    let promedio = 0
+
     for (let i = 0; i < inscripcion.evaluaciones.length; i++) {
         const evaluacion = inscripcion.evaluaciones[i]
         const nota = inscripcion.notas[i] || { nota: '' }
+
+        // Aumentar el promedio
+        if (nota.nota !== '') {
+            promedio += parseFloat(nota.nota) * parseFloat(evaluacion.porcentaje)
+        }
 
         evaluaciones.innerHTML += `
             <tr>
@@ -82,6 +110,12 @@ function inscripcion_a_carta(inscripcion) {
                 <td class="text-nowrap">${evaluacion.fecha === null ? '' : evaluacion.fecha}</td>
             </tr>
         `
+    }
+
+    // Agregar el promedio y el promedio del curso
+    if (promedio > 0) {
+        promedio = Number(promedio.toFixed(2))
+        metadatos.rows[3].cells[1].innerText = promedio
     }
 
     // Agregar los metadatos y evaluaciones a la carta
