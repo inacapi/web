@@ -59,7 +59,7 @@ document.getElementById('guardar_evaluacion').addEventListener('click', async ()
 
 // El primer thead son los datos de la sección, el segundo son los datos de las evaluaciones,
 // hay que restar 2 porque corresponden a los nombres de cada estudiante
-const evaluaciones = document.querySelectorAll('thead > tr')[2].childElementCount - 2
+const celdas = document.querySelectorAll('thead > tr')[2].childElementCount - 2
 
 // Leer inscripciones
 const obtener_inscripciones = async () => {
@@ -117,14 +117,30 @@ function inscripcion_a_fila(inscripcion) {
     tr.innerHTML = `<td>${inscripcion.nombre}</td><td>${inscripcion.apellido}</td>`
 
     // Así rellenamos las celdas de todas las evaluaciones
-    while (tr.childElementCount < evaluaciones + 2) tr.innerHTML += '<td></td>'
+    while (tr.childElementCount < celdas + 2) tr.innerHTML += '<td></td>'
+
+    let promedio = 0
 
     // Agregar todas las evaluaciones, incluso aquellas sin nota
-    for (let i = 0; i < inscripcion.evaluaciones; i++) {
+    const evaluaciones = inscripcion.evaluaciones.length
+    for (let i = 0; i < evaluaciones; i++) {
         const evaluacion = inscripcion.evaluaciones[i]
         const nota = inscripcion.notas[i] || { nota: '' }
         tr.children[evaluacion.numero + 1].innerHTML = nota.nota
+        promedio += nota.nota === ''
+            ? 0 * evaluacion.porcentaje
+            : parseFloat(nota.nota) * evaluacion.porcentaje
     }
+
+    // Solo mostrar el promedio si existe
+    if (promedio > 0) {
+        promedio = Number(promedio.toFixed(2))
+        tr.children[evaluaciones + 2].innerHTML = promedio
+    }
+
+    // Metadatos de la inscripción
+    tr.children[evaluaciones + 3].innerHTML = inscripcion.nota_presentacion
+    tr.children[evaluaciones + 4].innerHTML = inscripcion.nota_final
 
     return tr.outerHTML
 }
