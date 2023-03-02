@@ -52,3 +52,4 @@ class Nota(models.Model):
 
     class Meta:
         unique_together = ['inscripcion', 'evaluacion']
+        ordering = ['evaluacion__numero']

@@ -34,8 +34,11 @@ function inscripcion_a_carta(inscripcion) {
     body.classList.add('card-body')
 
     // Tabla con los metadatos
+    const metadatos_containder = document.createElement('div')
+    metadatos_containder.classList.add('table-responsive')
+
     const metadatos = document.createElement('table')
-    metadatos.classList.add('table', 'table-borderless', 'table-sm')
+    metadatos.classList.add('table', 'table-bordered', 'table-sm', 'text-center')
     metadatos.innerHTML = `
         <tr>
             <th>Clase</th>
@@ -47,29 +50,40 @@ function inscripcion_a_carta(inscripcion) {
         </tr>
     `
 
+    metadatos_containder.appendChild(metadatos)
+
     // Tabla con las evaluaciones
+    const evaluaciones_container = document.createElement('div')
+    evaluaciones_container.classList.add('table-responsive')
+
     const evaluaciones = document.createElement('table')
-    evaluaciones.classList.add('table', 'table-borderless', 'table-sm', 'mb-0')
+    evaluaciones.classList.add('table', 'table-bordered', 'table-sm', 'mb-0', 'text-center')
 
     evaluaciones.innerHTML = `
         <tr>
             <th>Porcentaje</th>
             <th>Nota</th>
+            <th>Promedio</th>
+            <th>Fecha</th>
         </tr>
     `
+
+    evaluaciones_container.appendChild(evaluaciones)
 
     for (const nota of inscripcion.notas) {
         evaluaciones.innerHTML += `
             <tr>
                 <td>${parseFloat(nota.evaluacion__porcentaje) * 100}%</td>
                 <td>${nota.nota}</td>
+                <td>${nota.evaluacion__nota_promedio === null ? '' : nota.evaluacion__nota_promedio}</td>
+                <td class="text-nowrap">${nota.evaluacion__fecha === null ? '' : nota.evaluacion__fecha}</td>
             </tr>
         `
     }
 
     // Agregar los metadatos y evaluaciones a la carta
-    body.appendChild(metadatos)
-    body.appendChild(evaluaciones)
+    body.appendChild(metadatos_containder)
+    body.appendChild(evaluaciones_container)
 
     // Agregar el body al resto de la carta
     const col = document.createElement('div')

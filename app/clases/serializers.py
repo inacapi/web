@@ -54,6 +54,6 @@ class InscripcionSerializer(serializers.ModelSerializer):
         rep['nombre'] = f'{instance.matricula.estudiante.nombre}'
         rep['apellido'] = f'{instance.matricula.estudiante.apellido}'
         rep['notas'] = instance.notas.values(
-            'nota', 'evaluacion__numero', 'evaluacion__porcentaje')
+            'nota', 'evaluacion__numero', 'evaluacion__porcentaje', 'evaluacion__nota_promedio', 'evaluacion__fecha')
 
         return rep
