@@ -119,8 +119,12 @@ function inscripcion_a_fila(inscripcion) {
     // Así rellenamos las celdas de todas las evaluaciones
     while (tr.childElementCount < evaluaciones + 2) tr.innerHTML += '<td></td>'
 
-    // Cada evaluación lleva el número así que usamos eso para determinar dónde debe ir
-    for (const nota of inscripcion.notas) tr.children[nota.evaluacion__numero + 1].innerHTML = nota.nota
+    // Agregar todas las evaluaciones, incluso aquellas sin nota
+    for (let i = 0; i < inscripcion.evaluaciones; i++) {
+        const evaluacion = inscripcion.evaluaciones[i]
+        const nota = inscripcion.notas[i] || { nota: '' }
+        tr.children[evaluacion.numero + 1].innerHTML = nota.nota
+    }
 
     return tr.outerHTML
 }
