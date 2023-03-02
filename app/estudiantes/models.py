@@ -49,3 +49,6 @@ class Nota(models.Model):
         Inscripcion, on_delete=models.RESTRICT, related_name='notas')
     evaluacion = models.ForeignKey(Evaluacion, on_delete=models.RESTRICT)
     nota = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ['inscripcion', 'evaluacion']

@@ -143,7 +143,7 @@ def actualizar_notas(request):
                 continue  # Esa evaluación no tiene nota todavía
 
             Nota.objects.update_or_create(
-                inscripcion=paquete[0], evaluacion=evaluacion_bd, nota=nota)
+                inscripcion=paquete[0], evaluacion=evaluacion_bd, defaults={'nota': nota})
 
     if actualizar_token:
         response = requests.post('http://api:3000/obtener_token', json={
