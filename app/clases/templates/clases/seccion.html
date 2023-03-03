@@ -66,7 +66,7 @@
     <button type="button" class="btn btn-primary mb-3" id="actualizar_notas">Actualizar datos</button>
 
     <div class="table-responsive">
-        <table class="table table-bordered w-auto text-center">
+        <table class="table table-bordered w-auto text-center sortable">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -131,6 +131,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
 <script src="{% static 'clases/seccion.js' %}"></script>
 
 {% endblock contenido %}
