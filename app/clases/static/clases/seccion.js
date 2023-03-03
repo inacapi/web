@@ -165,9 +165,21 @@ document.querySelector('#actualizar_notas').addEventListener('click', async () =
 
 // Convierte una evaluación al html correspondiente
 function evaluacion_a_fila(evaluacion) {
+    let restante = ''
+    if (evaluacion.fecha) {
+        const partes = evaluacion.fecha.split('-')
+        const fecha = new Date(partes[2], partes[1] - 1, partes[0])
+        const diff = Math.ceil((fecha - new Date()) / (1000 * 60 * 60 * 24))
+
+        // Mostrar el número de días restantes o 'Pasó' si ya pasó
+        if (diff >= 0) restante = diff
+        else restante = 'Pasó'
+    }
+
     return `
         <tr>
             <td class="text-nowrap">${evaluacion.fecha === null ? '' : evaluacion.fecha}</td>
+            <td>${restante}</td>
             <td>${evaluacion.nota_promedio === null ? '' : evaluacion.nota_promedio}</td>
             <td>${parseFloat(evaluacion.porcentaje) * 100}%</td>
             <td>${evaluacion.numero}</td>

@@ -85,6 +85,7 @@ function inscripcion_a_carta(inscripcion) {
             <th>Nota</th>
             <th>Promedio</th>
             <th>Fecha</th>
+            <th>Restante</th>
         </tr>
     `
 
@@ -102,12 +103,25 @@ function inscripcion_a_carta(inscripcion) {
             promedio += parseFloat(nota.nota) * parseFloat(evaluacion.porcentaje)
         }
 
+        // Determinar el número de días restantes
+        let restante = ''
+        if (evaluacion.fecha) {
+            const partes = evaluacion.fecha.split('-')
+            const fecha = new Date(partes[2], partes[1] - 1, partes[0])
+            const diff = Math.ceil((fecha - new Date()) / (1000 * 60 * 60 * 24))
+
+            // Mostrar el número de días restantes o 'Pasó' si ya pasó
+            if (diff >= 0) restante = diff
+            else restante = 'Pasó'
+        }
+
         evaluaciones.innerHTML += `
             <tr>
                 <td>${parseFloat(evaluacion.porcentaje) * 100}%</td>
                 <td>${nota.nota}</td>
                 <td>${evaluacion.nota_promedio === null ? '' : evaluacion.nota_promedio}</td>
                 <td class="text-nowrap">${evaluacion.fecha === null ? '' : evaluacion.fecha}</td>
+                <td>${restante}</td>
             </tr>
         `
     }
