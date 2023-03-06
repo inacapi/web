@@ -46,6 +46,23 @@ class InscripcionFormulario(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         periodo = kwargs.pop('periodo')
         clase = kwargs.pop('clase')
+        codigo_electivo_opuesto = ''
+        eliminar_electivo = False
+
+        # Calcular el código del "electivo" opuesto
+        if clase.codigo:
+            eliminar_electivo = True
+            if clase.codigo[4] == '1':
+                codigo_electivo_opuesto = clase.codigo[:4] + '2' + clase.codigo[5:]
+            else:
+                codigo_electivo_opuesto = clase.codigo[:4] + '1' + clase.codigo[5:]
+
         super(InscripcionFormulario, self).__init__(*args, **kwargs)
         self.fields['matricula'].queryset = Matricula.objects.filter(
             periodo=periodo).exclude(inscripciones__seccion__clase=clase)
+
+        # Eliminar también los que ya están inscritos en el "electivo" opuesto
+        if eliminar_electivo:
+            self.fields['matricula'].queryset = self.fields['matricula'].queryset.exclude(
+                inscripciones__seccion__clase__codigo=codigo_electivo_opuesto)
+

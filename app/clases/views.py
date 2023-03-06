@@ -25,5 +25,5 @@ def seccion(request, id_clase, id_seccion):
     return render(request, 'clases/seccion.html', {
         'seccion': seccion,
         'formulario_evaluacion': EvaluacionFormulario(),
-        'formulario_inscripcion': InscripcionFormulario(periodo=seccion.periodo, clase=id_clase)
+        'formulario_inscripcion': InscripcionFormulario(periodo=seccion.periodo, clase=clase)
     })

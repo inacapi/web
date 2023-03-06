@@ -5,6 +5,7 @@ from django.db import models
 class Clase(models.Model):
     nombre = models.CharField(max_length=50)
     semestre = models.PositiveBigIntegerField()
+    codigo = models.CharField(max_length=6, unique=True, null=True, blank=True)
 
     def __str__(self):
         return f'{self.nombre}'
