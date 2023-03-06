@@ -95,6 +95,9 @@ def actualizar_notas(request):
         inscripciones = Inscripcion.objects.filter(matricula=matricula)
         seccion = [inscripcion.seccion.id for inscripcion in inscripciones]
 
+    else:
+        inscripciones = []
+
     if len(inscripciones) == 0:
         return Response(data={'mensaje_error': 'No hay inscripciones con esa matrícula o sección.'}, status=400)
 
@@ -140,11 +143,13 @@ def actualizar_notas(request):
         paquete[0].nota_final = paquete[1]['notas'][0]['cargNnotaFinal']
         paquete[0].nota_presentacion = paquete[1]['notas'][0]['cargNnotaPresentacion']
 
-        for evaluacion in evaluaciones:
+        for numero, evaluacion in enumerate(evaluaciones, 1):
+            # Convertir el número a un string
+            numero = str(numero)
             porcentaje = evaluacion['caliNponderacion']
             # No uso seccion porque puede ser una lista cuando se envía una matrícula
             id_seccion = paquete[0].seccion.id
-            numero = evaluacion['caliNevaluacion']
+            # numero = evaluacion['caliNevaluacion']
             porcentaje = float(porcentaje[:porcentaje.find('%')]) / 100
 
             try:
